@@ -1,12 +1,15 @@
 package CsvParser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Item {
 	public String objectId;
-	public String updateTime;
-	public String objectLatitude;
-	public String objectLongitude;
-	public String objectAltitude;
-	public String objectDirection;
-	public String objectSpeed;
-	public String objectAuccuracy;
+	public String objectName;
+	public List<PointItem> points = new ArrayList<PointItem>();
+	
+	public int getPointSize() {
+		return points.size();
+	}
+	
 }

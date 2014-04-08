@@ -20,10 +20,10 @@ public class MainTDB {
 	}
 	
 	public static void parseTest() {
-		CsvParser pars= new CsvParser("objetsMobiles.csv",":");
+		CsvParser pars= new CsvParser("Travail_maison.csv",",");
 		List<Item> lst = pars.parse();
 		for (Item item : lst) {
-			System.out.println(item);
+			//System.out.println(item);
 		}
 	}
 }
