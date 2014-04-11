@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObjetMobile extends Point{
-	private List<String> points = new ArrayList<String>();
+	private List<Point> points = new ArrayList<Point>();
 	private String objetId;
 	private String objetName;
 	private String activity;
@@ -42,11 +42,11 @@ public class ObjetMobile extends Point{
 		this.description = des;
 	}
 	
-	public List<String> getPoints() {
+	public List<Point> getPoints() {
 		return points;
 	}
 	
-	public void addPoints(String point) {
+	public void addPoints(Point point) {
 		this.points.add(point);
 	}
 }

@@ -13,14 +13,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 import CsvParser.Item;
+import DataModel.ObjetMobile;
 
 public class CsvParser {
 	String path;
 	String deliminator = "\t";
+	List<ObjetMobile> items = new LinkedList<>();
 
 	public CsvParser(String filename, String deliminator) {
 		path = filename;
 		this.deliminator = deliminator;
+	}
+
+	public List<ObjetMobile> getItems() {
+		return items;
 	}
 
 	public List<Item> parse() {
@@ -57,7 +63,7 @@ public class CsvParser {
 				}
 				System.err.println();
 			}
-			//System.out.println("---------------------------------------------");
+			// System.out.println("---------------------------------------------");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

@@ -92,50 +92,50 @@ public class ModelFactoryObjetMobil {
 	void AddItemProperty() {
 
 		item.addProperty(
-				CreateProperty(item, ns_item, "id", "l'identifiant de l'item",
+				CreateProperty(item, ns_item, "itemId", "l'identifiant de l'item",
 						"Item id", XSD.ID), ns_item);
 		item.addProperty(
-				CreateProperty(item, ns_item, "name", "l'etiquete de l'item",
+				CreateProperty(item, ns_item, "itemName", "l'etiquete de l'item",
 						"Item name", XSD.xstring), ns_item);
 		item.addProperty(
-				CreateProperty(item, ns_item, "activity", "type de l'activity",
+				CreateProperty(item, ns_item, "itemActivity", "type de l'activity",
 						"Item activity", XSD.xstring), ns_item);
 		item.addProperty(
-				CreateProperty(item, ns_item, "description",
+				CreateProperty(item, ns_item, "itemDescription",
 						"description sur cet item", "Item description",
 						XSD.xstring), ns_item);
 		item.addProperty(
-				CreateProperty(item, ns_item, "point existant",
+				CreateProperty(item, ns_item, "pointExistant",
 						"point appartient à item", "Item point", point),
 				ns_item);
 	}
 
 	void AddPointProperty() {
 		point.addProperty(
-				CreateProperty(point, ns_point, "id", "l'identifiant de point",
+				CreateProperty(point, ns_point, "pointId", "l'identifiant de point",
 						"Point id", XSD.ID), ns_point);
 		point.addProperty(
-				CreateProperty(point, ns_point, "latitude",
+				CreateProperty(point, ns_point, "pointLatitude",
 						"lotitude de point", "point latitude", XSD.xstring),
 				ns_point);
 		point.addProperty(
-				CreateProperty(point, ns_point, "longitude",
+				CreateProperty(point, ns_point, "pointLongitude",
 						"longitude de point", "point longitude", XSD.xstring),
 				ns_point);
 		point.addProperty(
-				CreateProperty(point, ns_point, "altitude",
+				CreateProperty(point, ns_point, "pointAltitude",
 						"altitude de point", "point altitude", XSD.xstring),
 				ns_point);
 		point.addProperty(
-				CreateProperty(point, ns_point, "direction",
+				CreateProperty(point, ns_point, "pointDirection",
 						"direction de point", "point direction", XSD.xstring),
 				ns_point);
 		point.addProperty(
-				CreateProperty(point, ns_point, "vitesse",
+				CreateProperty(point, ns_point, "pointSpeed",
 						"la vitesse de point", "point speed", XSD.xstring),
 				ns_point);
 		point.addProperty(
-				CreateProperty(point, ns_point, "time",
+				CreateProperty(point, ns_point, "saveTime",
 						"le temps d'enregistrement", "time", XSD.xstring),
 				ns_point);
 
@@ -154,19 +154,19 @@ public class ModelFactoryObjetMobil {
 		return namespace;
 	}
 
-	public String getNs_entity() {
+	public String getNs_item() {
 		return ns_item;
 	}
 
-	public String getNs_location() {
+	public String getNs_point() {
 		return ns_point;
 	}
 
-	public OntClass getEntity() {
+	public OntClass getItem() {
 		return item;
 	}
 
-	public OntClass getLocation() {
+	public OntClass getPoint() {
 		return point;
 	}
 
