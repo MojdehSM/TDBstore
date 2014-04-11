@@ -1,9 +1,14 @@
 package CsvParser;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,24 +26,23 @@ public class CsvParser {
 	public List<Item> parse() {
 
 		List<Item> lst = new LinkedList<>();
-		// List<PointItem> lstPoint = new LinkedList<>();
 		BufferedReader br = null;
 
 		try {
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(path));
+			String[] strs = null;
+			Item item = new Item();
 			while ((sCurrentLine = br.readLine()) != null) {
-				String[] strs = sCurrentLine.split(deliminator);
-				Item item = new Item();
+				strs = sCurrentLine.split(deliminator);
 				PointItem point = new PointItem();
-				if (strs.length <= 2) {
+				if (strs.length <= 4) {
 					item.objectId = strs[0];
 					item.objectName = strs[1];
+					item.activity = strs[2];
+					item.description = strs[3];
 					lst.add(item);
-					for (int i = 0; i < strs.length; i++) {
-						//System.err.print(strs[i] + " - ");
-					}
-				} else if (strs.length > 2) {
+				} else if (strs.length > 4) {
 					point.pointId = strs[0];
 					point.pointLatitude = strs[1];
 					point.pointLongitude = strs[2];
@@ -48,11 +52,12 @@ public class CsvParser {
 					point.pointTime = strs[6];
 					item.points.add(point);
 				}
-				for (int i = 0; i < item.points.size() ; i++) {
-					//System.err.println(item.points.get(i).toString());
+				for (int i = 0; i < strs.length; i++) {
+					System.err.print(strs[i] + " - ");
 				}
+				System.err.println();
 			}
-			
+			//System.out.println("---------------------------------------------");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -63,7 +68,7 @@ public class CsvParser {
 				ex.printStackTrace();
 			}
 		}
-		System.out.println("ListItem:" + lst);
+		// System.out.println("ListItem:" + lst);
 		return lst;
 	}
 

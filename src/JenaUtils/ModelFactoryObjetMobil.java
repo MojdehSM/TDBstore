@@ -2,6 +2,9 @@ package JenaUtils;
 
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
+
+import DataModel.*;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -12,11 +15,11 @@ import com.hp.hpl.jena.vocabulary.XSD;
 public class ModelFactoryObjetMobil {
 	private OntModel model;
 	private String namespace = "http://tdbExemple/TDBstore#";
-	private String ns_entity = "http://tdbExemple/TDBstore/entity#";
-	private String ns_location = "http://tdbExemple/TDBstore/location#";
+	private String ns_item = "http://tdbExemple/TDBstore/item#";
+	private String ns_point = "http://tdbExemple/TDBstore/item/point#";
 
-	private OntClass entity;
-	private OntClass location;
+	private OntClass item;
+	private OntClass point;
 
 	static ModelFactoryObjetMobil singleton = null;
 
@@ -27,7 +30,7 @@ public class ModelFactoryObjetMobil {
 	public OntModel getModel() {
 		return model;
 	}
-	
+
 	public static ModelFactoryObjetMobil getMObjetMobil() {
 		if (singleton == null) {
 			singleton = new ModelFactoryObjetMobil();
@@ -36,20 +39,42 @@ public class ModelFactoryObjetMobil {
 	}
 
 	public void CreateIfNotExistOntologie() {
+		// model = TDButils.getTDBModel();
+		Iterator<OntClass> cl = model.listClasses();
+		if (cl.hasNext()) {
+			System.out.println("Getting existing ");
+			do {
+				OntClass c = cl.next();
+				if (c.equals(item)) {
+					item = c;
+				} else if (c.equals(point)) {
+					point = c;
+				}
+				System.err.println(c.getLocalName());
+				Iterator<OntProperty> pso = c.listDeclaredProperties();
+				while (pso.hasNext()) {
+					OntProperty p = pso.next();
+					System.out.println(p.getLocalName());
+				}
 
+			} while (cl.hasNext());
+		} else {
+			System.out.println("Creating Ont Class ");
+			CreateOntClasses();
+		}
 	}
 
 	public void CreateOntClasses() {
 
 		model.setNsPrefix("data", namespace);
-		model.setNsPrefix("entity", ns_entity);
-		model.setNsPrefix("location", ns_location);
+		model.setNsPrefix("item", ns_item);
+		model.setNsPrefix("point", ns_point);
 
-		entity = model.createClass(namespace + "entity");
-		location = model.createClass(namespace + "location");
+		item = model.createClass(namespace + "item");
+		point = model.createClass(namespace + "point");
 
-		AddEntityProperty();
-		AddLocationProperty();
+		AddItemProperty();
+		AddPointProperty();
 	}
 
 	public OntProperty CreateProperty(OntClass classe, String namespace,
@@ -64,32 +89,55 @@ public class ModelFactoryObjetMobil {
 		return property;
 	}
 
-	void AddEntityProperty() {
-		
-		entity.addProperty(
-				CreateProperty(entity, ns_entity, "id",
-						"l'identifiant de l'entity", "Entity id", XSD.ID),
-				ns_entity);
-		entity.addProperty(
-				CreateProperty(entity, ns_entity, "name",
-						"l'etiquete de l'entity", "Entity name", XSD.xstring),
-				ns_entity);
-		entity.addProperty(
-				CreateProperty(entity, ns_entity, "timeStamp",
-						"temps d'enregistrement", "Entity time", XSD.dateTime),
-				ns_entity);
+	void AddItemProperty() {
+
+		item.addProperty(
+				CreateProperty(item, ns_item, "id", "l'identifiant de l'item",
+						"Item id", XSD.ID), ns_item);
+		item.addProperty(
+				CreateProperty(item, ns_item, "name", "l'etiquete de l'item",
+						"Item name", XSD.xstring), ns_item);
+		item.addProperty(
+				CreateProperty(item, ns_item, "activity", "type de l'activity",
+						"Item activity", XSD.xstring), ns_item);
+		item.addProperty(
+				CreateProperty(item, ns_item, "description",
+						"description sur cet item", "Item description",
+						XSD.xstring), ns_item);
+		item.addProperty(
+				CreateProperty(item, ns_item, "point existant",
+						"point appartient à item", "Item point", point),
+				ns_item);
 	}
 
-	void AddLocationProperty() {
-		
-		location.addProperty(
-				CreateProperty(location, ns_location, "longitude",
-						"longitude de l'entity", "loc longitude", XSD.xdouble),
-				ns_location);
-		location.addProperty(
-				CreateProperty(location, ns_location, "latitude",
-						"longitude de l'entity", "loc latitude", XSD.xdouble),
-				ns_location);
+	void AddPointProperty() {
+		point.addProperty(
+				CreateProperty(point, ns_point, "id", "l'identifiant de point",
+						"Point id", XSD.ID), ns_point);
+		point.addProperty(
+				CreateProperty(point, ns_point, "latitude",
+						"lotitude de point", "point latitude", XSD.xstring),
+				ns_point);
+		point.addProperty(
+				CreateProperty(point, ns_point, "longitude",
+						"longitude de point", "point longitude", XSD.xstring),
+				ns_point);
+		point.addProperty(
+				CreateProperty(point, ns_point, "altitude",
+						"altitude de point", "point altitude", XSD.xstring),
+				ns_point);
+		point.addProperty(
+				CreateProperty(point, ns_point, "direction",
+						"direction de point", "point direction", XSD.xstring),
+				ns_point);
+		point.addProperty(
+				CreateProperty(point, ns_point, "vitesse",
+						"la vitesse de point", "point speed", XSD.xstring),
+				ns_point);
+		point.addProperty(
+				CreateProperty(point, ns_point, "time",
+						"le temps d'enregistrement", "time", XSD.xstring),
+				ns_point);
 
 	}
 
@@ -105,21 +153,21 @@ public class ModelFactoryObjetMobil {
 	public String getNamespace() {
 		return namespace;
 	}
-	
+
 	public String getNs_entity() {
-		return ns_entity;
+		return ns_item;
 	}
 
 	public String getNs_location() {
-		return ns_location;
+		return ns_point;
 	}
-	
+
 	public OntClass getEntity() {
-		return entity;
+		return item;
 	}
 
 	public OntClass getLocation() {
-		return location;
+		return point;
 	}
 
 }
