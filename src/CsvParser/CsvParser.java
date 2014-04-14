@@ -1,24 +1,17 @@
 package CsvParser;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import CsvParser.Item;
 import DataModel.ObjetMobile;
 
 public class CsvParser {
 	String path;
 	String deliminator = "\t";
-	List<ObjetMobile> items = new LinkedList<>();
+	List<ObjetMobile> items = new LinkedList<ObjetMobile>();
 
 	public CsvParser(String filename, String deliminator) {
 		path = filename;
@@ -31,7 +24,7 @@ public class CsvParser {
 
 	public List<Item> parse() {
 
-		List<Item> lst = new LinkedList<>();
+		List<Item> lst = new LinkedList<Item>();
 		BufferedReader br = null;
 
 		try {
