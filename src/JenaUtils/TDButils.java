@@ -9,10 +9,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.query.ReadWrite;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.tdb.TDBLoader;
@@ -24,10 +26,13 @@ public class TDButils {
 	/**
 	 * On crée un modèle Jena de données TDB dans un répertoire nommé On lit le
 	 * modele rdf existant (lors de la premiere utilisation)
+	 * 
+	 * @param directory
+	 * @param files
 	 */
 	public static void createTDBModel(String directory, List<File> files) {
-
-		Dataset dataset = TDBFactory.createDataset(directory);
+		
+		Dataset dataset = TDBFactory.createDataset("data/");
 		dataset.begin(ReadWrite.READ);
 		try {
 			Model model = dataset.getDefaultModel();
@@ -68,16 +73,16 @@ public class TDButils {
 	/*
 	 * Récupération du modèle
 	 */
-	public static Object getTDBModel(String directory) {
-		Dataset dataset = TDBFactory.createDataset(directory);
-		Model m2 = dataset.getDefaultModel();
-		System.out.println("Liste de l'ontologie :");
-		Iterator classIter = m2.listObjects();
-		while (classIter.hasNext()) {
-			Object rdfn = (Object) classIter.next();
-			System.out.println(rdfn);
-		}
-		return classIter;
+	public static OntModel getTDBModel() {
+		
+		Dataset dataset = TDBFactory.createDataset("data");
+		
+		Model model = dataset.getDefaultModel();
+		OntModel mdb = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, model);
+		
+		dataset.close();
+		
+		return mdb;
 
 	}
 

@@ -37,7 +37,7 @@ public class ModelFactoryObjetMobil {
 	}
 
 	public void CreateIfNotExistOntologie() {
-		// model = TDButils.getTDBModel();
+		model = TDButils.getTDBModel();
 		Iterator<OntClass> cl = model.listClasses();
 		if (cl.hasNext()) {
 			System.out.println("Getting existing ");
@@ -75,10 +75,8 @@ public class ModelFactoryObjetMobil {
 		AddPointProperty();
 	}
 
-	public OntProperty CreateProperty(OntClass classe, String namespace,
-			String propertyName, String comment, String label, Resource resource) {
-		OntProperty property = model
-				.createOntProperty(namespace + propertyName);
+	public OntProperty CreateProperty(OntClass classe, String namespace, String propertyName, String comment, String label, Resource resource) {
+		OntProperty property = model.createOntProperty(namespace + propertyName);
 		property.setDomain(classe);
 		property.setRange(resource);
 		property.addComment(comment, "fr");
@@ -89,62 +87,27 @@ public class ModelFactoryObjetMobil {
 
 	void AddItemProperty() {
 
-		item.addProperty(
-				CreateProperty(item, ns_item, "itemId",
-						"l'identifiant de l'item", "Item id", XSD.ID), ns_item);
-		item.addProperty(
-				CreateProperty(item, ns_item, "itemName",
-						"l'etiquete de l'item", "Item name", XSD.xstring),
-				ns_item);
-		item.addProperty(
-				CreateProperty(item, ns_item, "itemActivity",
-						"type de l'activity", "Item activity", XSD.xstring),
-				ns_item);
-		item.addProperty(
-				CreateProperty(item, ns_item, "itemDescription",
-						"description sur cet item", "Item description",
-						XSD.xstring), ns_item);
-		item.addProperty(
-				CreateProperty(item, ns_item, "pointExistant",
-						"point appartient à item", "Item point", point),
-				ns_item);
+		item.addProperty(CreateProperty(item, ns_item, "itemId", "l'identifiant de l'item", "Item id", XSD.ID), ns_item);
+		item.addProperty(CreateProperty(item, ns_item, "itemName", "l'etiquete de l'item", "Item name", XSD.xstring), ns_item);
+		item.addProperty(CreateProperty(item, ns_item, "itemActivity", "type de l'activity", "Item activity", XSD.xstring), ns_item);
+		item.addProperty(CreateProperty(item, ns_item, "itemDescription", "description sur cet item", "Item description", XSD.xstring), ns_item);
+		item.addProperty(CreateProperty(item, ns_item, "pointExistant", "point appartient à item", "Item point", point), ns_item);
 	}
 
 	void AddPointProperty() {
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointId",
-						"l'identifiant de point", "Point id", XSD.ID), ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointLatitude",
-						"lotitude de point", "point latitude", XSD.xstring),
-				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointLongitude",
-						"longitude de point", "point longitude", XSD.xstring),
-				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointAltitude",
-						"altitude de point", "point altitude", XSD.xstring),
-				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointDirection",
-						"direction de point", "point direction", XSD.xstring),
-				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointSpeed",
-						"la vitesse de point", "point speed", XSD.xstring),
-				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "saveTime",
-						"le temps d'enregistrement", "time", XSD.xstring),
-				ns_point);
+		point.addProperty(CreateProperty(point, ns_point, "pointId", "l'identifiant de point", "Point id", XSD.ID), ns_point);
+		point.addProperty(CreateProperty(point, ns_point, "pointLatitude", "lotitude de point", "point latitude", XSD.xstring), ns_point);
+		point.addProperty(CreateProperty(point, ns_point, "pointLongitude", "longitude de point", "point longitude", XSD.xstring), ns_point);
+		point.addProperty(CreateProperty(point, ns_point, "pointAltitude", "altitude de point", "point altitude", XSD.xstring), ns_point);
+		point.addProperty(CreateProperty(point, ns_point, "pointDirection", "direction de point", "point direction", XSD.xstring), ns_point);
+		point.addProperty(CreateProperty(point, ns_point, "pointSpeed", "la vitesse de point", "point speed", XSD.xstring), ns_point);
+		point.addProperty(CreateProperty(point, ns_point, "saveTime", "le temps d'enregistrement", "time", XSD.xstring), ns_point);
 
 	}
 
 	public void toConsole() {
 		try {
-			model.write(new OutputStreamWriter(System.out, "UTF8"),
-					"RDF/XML-ABBREV");
+			model.write(new OutputStreamWriter(System.out, "UTF8"), "RDF/XML-ABBREV");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
