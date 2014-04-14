@@ -4,8 +4,6 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
-import DataModel.*;
-
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntProperty;
@@ -92,14 +90,16 @@ public class ModelFactoryObjetMobil {
 	void AddItemProperty() {
 
 		item.addProperty(
-				CreateProperty(item, ns_item, "itemId", "l'identifiant de l'item",
-						"Item id", XSD.ID), ns_item);
+				CreateProperty(item, ns_item, "itemId",
+						"l'identifiant de l'item", "Item id", XSD.ID), ns_item);
 		item.addProperty(
-				CreateProperty(item, ns_item, "itemName", "l'etiquete de l'item",
-						"Item name", XSD.xstring), ns_item);
+				CreateProperty(item, ns_item, "itemName",
+						"l'etiquete de l'item", "Item name", XSD.xstring),
+				ns_item);
 		item.addProperty(
-				CreateProperty(item, ns_item, "itemActivity", "type de l'activity",
-						"Item activity", XSD.xstring), ns_item);
+				CreateProperty(item, ns_item, "itemActivity",
+						"type de l'activity", "Item activity", XSD.xstring),
+				ns_item);
 		item.addProperty(
 				CreateProperty(item, ns_item, "itemDescription",
 						"description sur cet item", "Item description",
@@ -112,8 +112,8 @@ public class ModelFactoryObjetMobil {
 
 	void AddPointProperty() {
 		point.addProperty(
-				CreateProperty(point, ns_point, "pointId", "l'identifiant de point",
-						"Point id", XSD.ID), ns_point);
+				CreateProperty(point, ns_point, "pointId",
+						"l'identifiant de point", "Point id", XSD.ID), ns_point);
 		point.addProperty(
 				CreateProperty(point, ns_point, "pointLatitude",
 						"lotitude de point", "point latitude", XSD.xstring),
