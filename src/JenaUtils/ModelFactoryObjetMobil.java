@@ -37,15 +37,19 @@ public class ModelFactoryObjetMobil {
 	}
 
 	public void CreateIfNotExistOntologie() {
-		model = TDButils.createTDBModel();
+	//	model = TDButils.createTDBModel();
 		Iterator<OntClass> cl = model.listClasses();
+		/**
+		 * if base is created
+		 */
 		if (cl.hasNext()) {
 			System.out.println("Getting existing ");
 			do {
 				OntClass c = cl.next();
-				if (c.equals(item)) {
+				OntClassType type = OntClassType.valueOf(c.getLocalName());
+				if (type.equals(item)) {
 					item = c;
-				} else if (c.equals(point)) {
+				} else if (type.equals(point)) {
 					point = c;
 				}
 				System.err.println(c.getLocalName());
@@ -101,7 +105,7 @@ public class ModelFactoryObjetMobil {
 		point.addProperty(CreateProperty(point, ns_point, "pointAltitude", "altitude de point", "point altitude", XSD.xstring), ns_point);
 		point.addProperty(CreateProperty(point, ns_point, "pointDirection", "direction de point", "point direction", XSD.xstring), ns_point);
 		point.addProperty(CreateProperty(point, ns_point, "pointSpeed", "la vitesse de point", "point speed", XSD.xstring), ns_point);
-		point.addProperty(CreateProperty(point, ns_point, "saveTime", "le temps d'enregistrement", "time", XSD.xstring), ns_point);
+		point.addProperty(CreateProperty(point, ns_point, "saveTime", "le temps d'enregistrement", "time", XSD.dateTime), ns_point);
 
 	}
 

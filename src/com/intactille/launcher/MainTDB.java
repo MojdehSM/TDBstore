@@ -7,13 +7,15 @@ import java.util.List;
 import CsvParser.CsvParser;
 import JenaUtils.ConvertCSVtoRDF;
 import JenaUtils.ModelFactoryObjetMobil;
+import JenaUtils.TDButils;
 
 public class MainTDB {
 	public static void main(String args[]) throws IOException {
 		List<String> list = Arrays.asList("Travail_maison.csv", "Burger.csv",
 				"Christophe.csv", "Carré du Roi.csv", "Olivier.csv");
-		// parseTest(list);
-		CreateJenaModel();
+		 //parseTest(list);
+		 TDButils.run();
+		//CreateJenaModel();
 	}
 
 	public static void parseTest(List<String> files) {
