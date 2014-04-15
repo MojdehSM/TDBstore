@@ -37,7 +37,7 @@ public class ModelFactoryObjetMobil {
 	}
 
 	public void CreateIfNotExistOntologie() {
-		model = TDButils.getTDBModel();
+		model = TDButils.createTDBModel();
 		Iterator<OntClass> cl = model.listClasses();
 		if (cl.hasNext()) {
 			System.out.println("Getting existing ");

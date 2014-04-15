@@ -5,7 +5,6 @@ import java.util.Iterator;
 import CsvParser.CsvParser;
 import DataModel.ObjetMobile;
 import DataModel.Point;
-
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Model;
@@ -86,18 +85,6 @@ public class ConvertCSVtoRDF {
 				m.addProperty(currentProperty, point.getPointTime());
 			}
 		}
-	}
-
-	private static void setPrefixes(Model m) {
-		m.setNsPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
-		m.setNsPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-		m.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
-		m.setNsPrefix("owl", "http://www.w3.org/2002/07/owl#");
-		m.setNsPrefix("dc", "http://purl.org/dc/elements/1.1/");
-		m.setNsPrefix("scv", "http://purl.org/NET/scovo#");
-		m.setNsPrefix("ckan", "http://ckan.net/ns#");
-		m.setNsPrefix("sdx", "http://epimorphics.com/vocab/sdx#");
-		m.setNsPrefix("foaf", "http://xmlns.com/foaf/0.1/");
 	}
 
 }
