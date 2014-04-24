@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class CsvParser {
 	String path;
 	String deliminator = "\t";
@@ -42,21 +41,25 @@ public class CsvParser {
 					feature.fDescription = strs[3];
 					lst.add(feature);
 					
-				}else if (strs.length > 4 && feature.getFeatureType().equals("navire")) {
-					System.out.println("FeatureType:" + feature.getFeatureType());
-					point.pointId = strs[0];
-					point.pointLatitude = strs[1];
-					point.pointLongitude = strs[2];
-					point.pointAltitude = strs[3];
-					point.pointDirection = strs[4];
-					point.pointSpeed = strs[5];
-					point.pointTime = strs[6];
-					navire.points.add(point);
+				} else if ((strs.length > 4) && strs[2].equals("way")) {
+					System.out.println(strs[2]);
+					//if (feature.getFeatureType().equals("way")) {
+						point.pointId = strs[0];
+						point.pointLatitude = strs[1];
+						point.pointLongitude = strs[2];
+						point.pointAltitude = strs[3];
+						point.pointDirection = strs[4];
+						point.pointSpeed = strs[5];
+						point.pointTime = strs[6];
+						navire.points.add(point);
+					//}
 				}
-				for (int i = 0; i < strs.length; i++) {
-					System.err.print(strs[i] + " - ");
-				}
-				System.err.println();
+				//if (feature.getFeatureType().equals("way")) {
+					for (int i = 0; i < strs.length; i++) {
+						System.err.print(strs[i] + " - ");
+					}
+					System.err.println();
+				//}
 			}
 			// System.out.println("---------------------------------------------");
 		} catch (IOException e) {

@@ -6,7 +6,7 @@ import java.util.List;
 
 import DataModel.CsvParser;
 import JenaUtils.ConvertCSVtoRDF;
-import JenaUtils.ModelFactoryObjetMobil;
+import JenaUtils.GeoModelFactory;
 import JenaUtils.TDButils;
 
 public class MainTDB {
@@ -33,7 +33,7 @@ public class MainTDB {
 	}
 
 	public static void CreateJenaModel() {
-		ModelFactoryObjetMobil model = ModelFactoryObjetMobil.getMObjetMobil();
+		GeoModelFactory model = GeoModelFactory.getModelGeoObjet();
 		model.toConsole();
 	}
 }

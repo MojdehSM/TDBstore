@@ -13,18 +13,18 @@ import com.hp.hpl.jena.rdf.model.Model;
 public class ConvertCSVtoRDF {
 
 	CsvParser data;
-	ModelFactoryObjetMobil model;
+	GeoModelFactory model;
 
 	public ConvertCSVtoRDF(CsvParser data) {
 		this.data = data;
-		model = ModelFactoryObjetMobil.getMObjetMobil();
+		model = GeoModelFactory.getModelGeoObjet();
 	}
 
 	public void convertAll() {
 
 		for (Navire item : data.getItems()) {
-			Individual myIndividual = model.getItem().createIndividual(
-					model.getNs_item() + item.getFeatureId());
+			Individual myIndividual = model.getFeature().createIndividual(
+					model.getNs_Feature() + item.getFeatureId());
 			ConvertObjectMobilToRDF(myIndividual, item);
 		}
 
@@ -38,7 +38,7 @@ public class ConvertCSVtoRDF {
 	 */
 	public void ConvertObjectMobilToRDF(Individual m, Navire item) {
 
-		Iterator<OntProperty> stmt = model.getItem().listDeclaredProperties();
+		Iterator<OntProperty> stmt = model.getFeature().listDeclaredProperties();
 		while (stmt.hasNext()) {
 			OntProperty currentProperty = stmt.next();
 			if (currentProperty.getLocalName().equals("itemId")) {
@@ -63,8 +63,8 @@ public class ConvertCSVtoRDF {
 	 */
 	private void ConvertPointToRDF(Individual item, Point point) {
 
-		Iterator<OntProperty> stmt = model.getItem().listDeclaredProperties();
-		Individual m = model.getItem().createIndividual(
+		Iterator<OntProperty> stmt = model.getFeature().listDeclaredProperties();
+		Individual m = model.getFeature().createIndividual(
 				model.getNs_point() + point.getPointId());
 		while (stmt.hasNext()) {
 			OntProperty currentProperty = stmt.next();
