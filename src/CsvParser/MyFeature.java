@@ -3,12 +3,12 @@ package CsvParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Item {
+public class MyFeature {
 	public String objectId;
 	public String objectName;
 	public String activity;
 	public String description;
-	public List<PointItem> points = new ArrayList<PointItem>();
+	public List<Feature> points = new ArrayList<Feature>();
 	
 	public int getPointSize() {
 		return points.size();

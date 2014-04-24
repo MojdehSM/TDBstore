@@ -1,4 +1,4 @@
-package CsvParser;
+package DataModel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,42 +6,44 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import DataModel.ObjetMobile;
 
 public class CsvParser {
 	String path;
 	String deliminator = "\t";
-	List<ObjetMobile> items = new LinkedList<ObjetMobile>();
+	List<Navire> items = new LinkedList<Navire>();
 
 	public CsvParser(String filename, String deliminator) {
 		path = filename;
 		this.deliminator = deliminator;
 	}
 
-	public List<ObjetMobile> getItems() {
+	public List<Navire> getItems() {
 		return items;
 	}
 
-	public List<Item> parse() {
+	public List<Feature> parse() {
 
-		List<Item> lst = new LinkedList<Item>();
+		List<Feature> lst = new LinkedList<Feature>();
 		BufferedReader br = null;
 
 		try {
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(path));
 			String[] strs = null;
-			Item item = new Item();
+			Feature feature = new Feature();
+			Navire navire = new Navire();
 			while ((sCurrentLine = br.readLine()) != null) {
 				strs = sCurrentLine.split(deliminator);
-				PointItem point = new PointItem();
+				Point point = new Point();
 				if (strs.length <= 4) {
-					item.objectId = strs[0];
-					item.objectName = strs[1];
-					item.activity = strs[2];
-					item.description = strs[3];
-					lst.add(item);
-				} else if (strs.length > 4) {
+					feature.featureId = strs[0];
+					feature.featureName = strs[1];
+					feature.featureType = strs[2];
+					feature.fDescription = strs[3];
+					lst.add(feature);
+					
+				}else if (strs.length > 4 && feature.getFeatureType().equals("navire")) {
+					System.out.println("FeatureType:" + feature.getFeatureType());
 					point.pointId = strs[0];
 					point.pointLatitude = strs[1];
 					point.pointLongitude = strs[2];
@@ -49,7 +51,7 @@ public class CsvParser {
 					point.pointDirection = strs[4];
 					point.pointSpeed = strs[5];
 					point.pointTime = strs[6];
-					item.points.add(point);
+					navire.points.add(point);
 				}
 				for (int i = 0; i < strs.length; i++) {
 					System.err.print(strs[i] + " - ");

@@ -2,9 +2,10 @@ package JenaUtils;
 
 import java.util.Iterator;
 
-import CsvParser.CsvParser;
-import DataModel.ObjetMobile;
+import DataModel.CsvParser;
+import DataModel.Navire;
 import DataModel.Point;
+
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Model;
@@ -21,9 +22,9 @@ public class ConvertCSVtoRDF {
 
 	public void convertAll() {
 
-		for (ObjetMobile item : data.getItems()) {
+		for (Navire item : data.getItems()) {
 			Individual myIndividual = model.getItem().createIndividual(
-					model.getNs_item() + item.getObjetid());
+					model.getNs_item() + item.getFeatureId());
 			ConvertObjectMobilToRDF(myIndividual, item);
 		}
 
@@ -35,22 +36,20 @@ public class ConvertCSVtoRDF {
 	 * @param m
 	 * @param item
 	 */
-	public void ConvertObjectMobilToRDF(Individual m, ObjetMobile item) {
+	public void ConvertObjectMobilToRDF(Individual m, Navire item) {
 
 		Iterator<OntProperty> stmt = model.getItem().listDeclaredProperties();
 		while (stmt.hasNext()) {
 			OntProperty currentProperty = stmt.next();
 			if (currentProperty.getLocalName().equals("itemId")) {
-				m.addProperty(currentProperty, item.getObjetid());
+				m.addProperty(currentProperty, item.getFeatureId());
 			} else if (currentProperty.getLocalName().equals("itemName")) {
-				m.addProperty(currentProperty, item.getObjetName());
-			} else if (currentProperty.getLocalName().equals("itemActivity")) {
-				m.addProperty(currentProperty, item.getActivity());
+				m.addProperty(currentProperty, item.getFeatureName());
 			} else if (currentProperty.getLocalName().equals("itemDescription")) {
-				m.addProperty(currentProperty, item.getDescription());
+				m.addProperty(currentProperty, item.getFDescription());
 			}
 		}
-		for (Point point : item.getPoints()) {
+		for (Point point : item.getNavirePoints()) {
 			ConvertPointToRDF(m, point);
 		}
 

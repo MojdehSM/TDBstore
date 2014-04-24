@@ -1,6 +1,6 @@
 package CsvParser;
 
-public class PointItem {
+public class Feature {
 	public String pointId;
 	public String pointLatitude;
 	public String pointLongitude;
