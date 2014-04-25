@@ -3,19 +3,19 @@ package DataModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Navire extends Feature{
+public class Navire extends MyFeature{
 
-	protected List<Point> points = new ArrayList<Point>();
+	protected List<CsvPoint> parcours = new ArrayList<CsvPoint>();
 	
 	public Navire() {
 		
 	}
 	
-	public List<Point> getNavirePoints() {
-		return points;
+	public List<CsvPoint> getNavirePoints() {
+		return parcours;
 	}
 	
-	public void addNavirePoints(Point point) {
-		this.points.add(point);
+	public void addNavirePoints(CsvPoint point) {
+		this.parcours.add(point);
 	}
 }

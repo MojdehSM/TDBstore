@@ -1,5 +1,5 @@
 package DataModel;
 
-public class Way extends Feature{
+public class Way extends MyFeature{
 
 }

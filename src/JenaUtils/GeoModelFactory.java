@@ -4,6 +4,8 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 
+import DataModel.FeatureType;
+
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -14,15 +16,17 @@ import com.hp.hpl.jena.vocabulary.XSD;
 public class GeoModelFactory {
 	private OntModel model;
 	private String namespace = "http://geometryObject/MaritimeSchema#";
-	private String ns_feature = "http://geometryObject/MaritimeSchema/Feature#";
+	private String ns_feature = "http://geometryObject/MaritimeSchema/myFeature#";
 	private String ns_navire = "http://geometryObject/MaritimeSchema/Navire#";
-	private String ns_point = "http://tdbExemple/TDBstore/item/point#";
+	private String ns_way = "http://geometryObject/MaritimeSchema/Way#";
+	private String ns_port = "http://geometryObject/MaritimeSchema/Port#";
+	private String ns_point = "http://geometryObject/TDBstore/csvPoint#";
 
-	private OntClass feature;
+	private OntClass myFeature;
 	private OntClass geometry;
 	private OntClass polygon;
 	private OntClass lineString;
-	private OntClass point;
+	private OntClass csvPoint;
 	private OntClass navire;
 	private OntClass port;
 	private OntClass way;
@@ -54,23 +58,17 @@ public class GeoModelFactory {
 			System.out.println("Getting existing ");
 			do {
 				OntClass c = cl.next();
-				OntClassType type = OntClassType.valueOf(c.getLocalName());
-				if (type.equals(feature)) {
-					feature = c;
-				} else if (type.equals(geometry)) {
-					geometry = c;
-				} else if (type.equals(polygon)) {
-					polygon = c;
-				} else if (type.equals(lineString)) {
-					lineString = c;
-				} else if (type.equals(point)) {
-					point = c;
-				} else if (type.equals(port)) {
+				FeatureType type = FeatureType.valueOf(c.getLocalName());
+				switch (type) {
+				case navire: 
+					navire=c;
+					break;
+				case port:
 					port = c;
-				} else if (type.equals(way)) {
-					navire = c;
-				} else if (type.equals(navire)) {
-					navire = c;
+					break;
+				case way:
+					way = c;
+					break;
 				}
 				System.err.println(c.getLocalName());
 				Iterator<OntProperty> pso = c.listDeclaredProperties();
@@ -91,11 +89,15 @@ public class GeoModelFactory {
 		model.setNsPrefix("MaririmeData", namespace);
 		model.setNsPrefix("Feature", ns_feature);
 		model.setNsPrefix("Navire", ns_navire);
+		model.setNsPrefix("Way", ns_way);
+		model.setNsPrefix("Port", ns_port);
 		model.setNsPrefix("Point", ns_point);
 
-		feature = model.createClass(ns_feature + "Feature");
+		myFeature = model.createClass(ns_feature + "Feature");
 		navire = model.createClass(ns_navire + "Navire");
-		point = model.createClass(ns_point + "Point");
+		way = model.createClass(ns_way+ "Way");
+		port = model.createClass(ns_port + "Port");
+		csvPoint = model.createClass(ns_point + "Point");
 
 		AddFeatureProperty();
 		AddNavireProperty();
@@ -132,20 +134,20 @@ public class GeoModelFactory {
 
 	void AddFeatureProperty() {
 
-		feature.addProperty(
-				CreateProperty(feature, ns_feature, "featureId",
-						"l'identifiant de l'objet", "Feature id", XSD.ID),
+		myFeature.addProperty(
+				CreateProperty(myFeature, ns_feature, "myFeatureId",
+						"l'identifiant de l'objet", "myFeature id", XSD.ID),
 				ns_feature);
-		feature.addProperty(
-				CreateProperty(feature, ns_feature, "featureName",
+		myFeature.addProperty(
+				CreateProperty(myFeature, ns_feature, "myFeatureName",
 						"l'etiquete de l'item", "Feature name", XSD.xstring),
 				ns_feature);
-		feature.addProperty(
-				CreateProperty(feature, ns_feature, "itemDescription",
+		myFeature.addProperty(
+				CreateProperty(myFeature, ns_feature, "myFDescription",
 						"description sur cet item", "Feature description",
 						XSD.xstring), ns_feature);
-		feature.addProperty(
-				CreateProperty(feature, ns_feature, "featureType",
+		myFeature.addProperty(
+				CreateProperty(myFeature, ns_feature, "myFeatureType",
 						"point appartient à item", "Feature type", XSD.xstring),
 				ns_feature);
 	}
@@ -153,53 +155,55 @@ public class GeoModelFactory {
 	void AddNavireProperty() {
 
 		navire.addProperty(
-				CreateProperty(navire, ns_navire, "pointsDeplacement",
-						"point de changement position", "Navire point", point),
+				CreateProperty(navire, ns_navire, "csvPoint",
+						"point de changement position", "Navire point", csvPoint),
 				ns_navire);
 
 	}
+	
+
 
 	void AddPointProperty() {
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointId",
+		csvPoint.addProperty(
+				CreateProperty(csvPoint, ns_point, "csPointId",
 						"l'identifiant de point", "Point id", XSD.ID), ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointLatitude",
+		csvPoint.addProperty(
+				CreateProperty(csvPoint, ns_point, "csvPointLatitude",
 						"lotitude de point", "point latitude", XSD.xstring),
 				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointLongitude",
+		csvPoint.addProperty(
+				CreateProperty(csvPoint, ns_point, "csvPointLongitude",
 						"longitude de point", "point longitude", XSD.xstring),
 				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointAltitude",
+		csvPoint.addProperty(
+				CreateProperty(csvPoint, ns_point, "csvPointAltitude",
 						"altitude de point", "point altitude", XSD.xstring),
 				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointDirection",
+		csvPoint.addProperty(
+				CreateProperty(csvPoint, ns_point, "csvPointDirection",
 						"direction de point", "point direction", XSD.xstring),
 				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "pointSpeed",
+		csvPoint.addProperty(
+				CreateProperty(csvPoint, ns_point, "csvPointSpeed",
 						"la vitesse de point", "point speed", XSD.xstring),
 				ns_point);
-		point.addProperty(
-				CreateProperty(point, ns_point, "saveTime",
+		csvPoint.addProperty(
+				CreateProperty(csvPoint, ns_point, "pointSaveTime",
 						"le temps d'enregistrement", "time", XSD.dateTime),
 				ns_point);
 
 	}
 
 	public void AddFeatureObjectProperty() {
-		CreateObjectProperty("hasGeometry", feature, geometry,
+		CreateObjectProperty("hasGeometry", myFeature, geometry,
 				"Geometry d'un feature", "Geometry of a feature");
-		CreateObjectProperty("defaultGeometry", feature, geometry,
+		CreateObjectProperty("defaultGeometry", myFeature, geometry,
 				"Default geometry d'un feature",
 				"Default geometry of a feature");
 	}
 
 	public void AddNavireObjectProperty() {
-		CreateObjectProperty("hasGeometryPoint", navire, point,
+		CreateObjectProperty("hasGeometryPoint", navire, csvPoint,
 				"Geometry d'un navire considéré comme un point",
 				"Geometry of a Ship");
 	}
@@ -221,9 +225,9 @@ public class GeoModelFactory {
 	 */
 
 	public void AddSubClasses() {
-		feature.addSubClass(navire);
-		feature.addSubClass(way);
-		feature.addSubClass(port);
+		myFeature.addSubClass(navire);
+		myFeature.addSubClass(way);
+		myFeature.addSubClass(port);
 	}
 
 	public void toConsole() {
@@ -252,7 +256,7 @@ public class GeoModelFactory {
 	}
 
 	public OntClass getFeature() {
-		return feature;
+		return myFeature;
 	}
 
 	public OntClass getGeometry() {
@@ -272,7 +276,7 @@ public class GeoModelFactory {
 	}
 
 	public OntClass getPoint() {
-		return point;
+		return csvPoint;
 	}
 
 }

@@ -20,38 +20,38 @@ public class CsvParser {
 		return items;
 	}
 
-	public List<Feature> parse() {
+	public List<MyFeature> parse() {
 
-		List<Feature> lst = new LinkedList<Feature>();
+		List<MyFeature> lst = new LinkedList<MyFeature>();
 		BufferedReader br = null;
 
 		try {
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(path));
 			String[] strs = null;
-			Feature feature = new Feature();
+			MyFeature feature = new MyFeature();
 			Navire navire = new Navire();
 			while ((sCurrentLine = br.readLine()) != null) {
 				strs = sCurrentLine.split(deliminator);
-				Point point = new Point();
+				CsvPoint point = new CsvPoint();
 				if (strs.length <= 4) {
 					feature.featureId = strs[0];
 					feature.featureName = strs[1];
-					feature.featureType = strs[2];
+					//feature.featureType = strs[2];
 					feature.fDescription = strs[3];
 					lst.add(feature);
 					
 				} else if ((strs.length > 4) && strs[2].equals("way")) {
 					System.out.println(strs[2]);
 					//if (feature.getFeatureType().equals("way")) {
-						point.pointId = strs[0];
-						point.pointLatitude = strs[1];
-						point.pointLongitude = strs[2];
-						point.pointAltitude = strs[3];
-						point.pointDirection = strs[4];
-						point.pointSpeed = strs[5];
-						point.pointTime = strs[6];
-						navire.points.add(point);
+						point.csvPointId = strs[0];
+						point.csvPointLatitude = strs[1];
+						point.csvPointLongitude = strs[2];
+						point.csvPointAltitude = strs[3];
+						point.csvPointDirection = strs[4];
+						point.csvPointSpeed = strs[5];
+						point.csvPointTime = strs[6];
+						navire.parcours.add(point);
 					//}
 				}
 				//if (feature.getFeatureType().equals("way")) {

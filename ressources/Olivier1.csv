@@ -1,4 +1,4 @@
-"objectId","objectName","Activity","Description"
+"objectId","objectName","type","Description"
 "131688","Olivier 10/04/2014","marche",""
 "Point","Latitude (degrés)","Longitude (degrés)","Altitude (m)","Relèvement (degrés)","Vitesse (m/s)","Durée"
 "1","43.613103","3.868717","100.70001220703125","194.0","0.0","2014-04-10T10:23:27.632Z"

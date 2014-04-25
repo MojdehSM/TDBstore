@@ -1,4 +1,4 @@
-"objectId","objectName","Activity","Description"
+"objectId","objectName","type","Description"
 "131683","Christophe 2014 04 15 - 18 Rue Paul Brousse","marche",""
 "Point","Latitude (degrés)","Longitude (degrés)","Altitude (m)","Relèvement (degrés)","Vitesse (m/s)","Durée"
 "1","43.607434","3.873833","79.14498138427734","289.0","0.0","2014-04-15T06:51:03.418Z"

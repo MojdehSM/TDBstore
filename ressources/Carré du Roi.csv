@@ -1,5 +1,5 @@
-"objectId","objectName","Activity","Description"
-"131686","Carré du Roi","marche","0.0"
+"objectId","objectName","type","Description"
+"131686","Carré du Roi","marche",""
 "Point","Latitude (degrés)","Longitude (degrés)","Altitude (m)","Relèvement (degrés)","Vitesse (m/s)","Durée"
 "1","43.613015","3.868822","67.0","84.0","1.6771","2014-04-10T10:24:30.437Z"
 "2","43.61304","3.868826","73.0","0.0","1.5","2014-04-10T10:24:35.637Z"

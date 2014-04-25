@@ -1,13 +1,13 @@
 package DataModel;
 
-public class Feature {
+public class MyFeature {
 
 	protected String featureId;
 	protected String featureName;
 	protected String fDescription;
-	protected String featureType;
+	protected FeatureType featureType;
 
-	public Feature() {
+	public MyFeature() {
 
 	}
 
@@ -35,11 +35,11 @@ public class Feature {
 		this.fDescription = des;
 	}
 
-	public String getFeatureType() {
+	public FeatureType getFeatureType() {
 		return this.featureType;
 	}
 
-	public void setFeatureType(String type) {
+	public void setFeatureType(FeatureType type) {
 		this.featureType = type;
 	}
 }

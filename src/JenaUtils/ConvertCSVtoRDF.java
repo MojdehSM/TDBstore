@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import DataModel.CsvParser;
 import DataModel.Navire;
-import DataModel.Point;
+import DataModel.CsvPoint;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntProperty;
@@ -49,7 +49,7 @@ public class ConvertCSVtoRDF {
 				m.addProperty(currentProperty, item.getFDescription());
 			}
 		}
-		for (Point point : item.getNavirePoints()) {
+		for (CsvPoint point : item.getNavirePoints()) {
 			ConvertPointToRDF(m, point);
 		}
 
@@ -61,7 +61,7 @@ public class ConvertCSVtoRDF {
 	 * @param item
 	 * @param point
 	 */
-	private void ConvertPointToRDF(Individual item, Point point) {
+	private void ConvertPointToRDF(Individual item, CsvPoint point) {
 
 		Iterator<OntProperty> stmt = model.getFeature().listDeclaredProperties();
 		Individual m = model.getFeature().createIndividual(
