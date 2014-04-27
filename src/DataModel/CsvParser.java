@@ -9,37 +9,36 @@ import java.util.List;
 public class CsvParser {
 	String path;
 	String deliminator = "\t";
-	List<Navire> items = new LinkedList<Navire>();
+	List<Ship> items = new LinkedList<Ship>();
 
 	public CsvParser(String filename, String deliminator) {
 		path = filename;
 		this.deliminator = deliminator;
 	}
 
-	public List<Navire> getItems() {
+	public List<Ship> getItems() {
 		return items;
 	}
 
-	public List<MyFeature> parse() {
+	public List<Ship> parse() {
 
-		List<MyFeature> lst = new LinkedList<MyFeature>();
+		List<Ship> lst = new LinkedList<Ship>();
 		BufferedReader br = null;
 
 		try {
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(path));
 			String[] strs = null;
-			MyFeature feature = new MyFeature();
-			Navire navire = new Navire();
+			Ship navire = new Ship();
 			while ((sCurrentLine = br.readLine()) != null) {
 				strs = sCurrentLine.split(deliminator);
-				CsvPoint point = new CsvPoint();
+				MaritimePoint point = new MaritimePoint();
 				if (strs.length <= 4) {
-					feature.featureId = strs[0];
-					feature.featureName = strs[1];
+					navire.setId(Long.parseLong(strs[0]));
+					//feature.featureName = strs[1];
 					//feature.featureType = strs[2];
-					feature.fDescription = strs[3];
-					lst.add(feature);
+					//feature.fDescription = strs[3];
+					lst.add(navire);
 					
 				} else if ((strs.length > 4) && strs[2].equals("way")) {
 					System.out.println(strs[2]);

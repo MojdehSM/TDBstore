@@ -1,10 +1,10 @@
-package JenaUtils;
+package com.intactille.jenautils;
 
 import java.util.Iterator;
 
 import DataModel.CsvParser;
-import DataModel.Navire;
-import DataModel.CsvPoint;
+import DataModel.Ship;
+import DataModel.MaritimePoint;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntProperty;
@@ -22,9 +22,8 @@ public class ConvertCSVtoRDF {
 
 	public void convertAll() {
 
-		for (Navire item : data.getItems()) {
-			Individual myIndividual = model.getFeature().createIndividual(
-					model.getNs_Feature() + item.getFeatureId());
+		for (Ship item : data.getItems()) {
+			Individual myIndividual = model.getShip().createIndividual(model.getNamespace() + item.getId());
 			ConvertObjectMobilToRDF(myIndividual, item);
 		}
 
@@ -36,20 +35,21 @@ public class ConvertCSVtoRDF {
 	 * @param m
 	 * @param item
 	 */
-	public void ConvertObjectMobilToRDF(Individual m, Navire item) {
+	public void ConvertObjectMobilToRDF(Individual m, Ship item) {
 
-		Iterator<OntProperty> stmt = model.getFeature().listDeclaredProperties();
+		Iterator<OntProperty> stmt = model.getShip().listDeclaredProperties();
 		while (stmt.hasNext()) {
 			OntProperty currentProperty = stmt.next();
-			if (currentProperty.getLocalName().equals("itemId")) {
-				m.addProperty(currentProperty, item.getFeatureId());
-			} else if (currentProperty.getLocalName().equals("itemName")) {
-				m.addProperty(currentProperty, item.getFeatureName());
-			} else if (currentProperty.getLocalName().equals("itemDescription")) {
-				m.addProperty(currentProperty, item.getFDescription());
-			}
+			// if (currentProperty.getLocalName().equals("itemId")) {
+			// m.addProperty(currentProperty, item.getFeatureId());
+			// } else if (currentProperty.getLocalName().equals("itemName")) {
+			// m.addProperty(currentProperty, item.getFeatureName());
+			// } else if
+			// (currentProperty.getLocalName().equals("itemDescription")) {
+			// m.addProperty(currentProperty, item.getFDescription());
+			// }
 		}
-		for (CsvPoint point : item.getNavirePoints()) {
+		for (MaritimePoint point : item.getNavirePoints()) {
 			ConvertPointToRDF(m, point);
 		}
 
@@ -61,11 +61,10 @@ public class ConvertCSVtoRDF {
 	 * @param item
 	 * @param point
 	 */
-	private void ConvertPointToRDF(Individual item, CsvPoint point) {
+	private void ConvertPointToRDF(Individual item, MaritimePoint point) {
 
-		Iterator<OntProperty> stmt = model.getFeature().listDeclaredProperties();
-		Individual m = model.getFeature().createIndividual(
-				model.getNs_point() + point.getPointId());
+		Iterator<OntProperty> stmt = model.getShip().listDeclaredProperties();
+		Individual m = model.getShip().createIndividual(model.getNamespace() + point.getPointId());
 		while (stmt.hasNext()) {
 			OntProperty currentProperty = stmt.next();
 			if (currentProperty.getLocalName().equals("pointId")) {

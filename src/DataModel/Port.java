@@ -1,5 +1,5 @@
 package DataModel;
 
-public class Port extends MyFeature {
+public class Port {
 
 }

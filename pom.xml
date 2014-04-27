@@ -11,8 +11,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source />
-					<target />
+					<source >1.7</source>
+					<target >1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -41,7 +41,7 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>1.7.6</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-arq</artifactId>
@@ -90,6 +90,12 @@
 			<version>1.4.01</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>org.opengis</groupId>
+			<artifactId>geoapi</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 
 
 

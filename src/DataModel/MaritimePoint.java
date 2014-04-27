@@ -1,6 +1,6 @@
 package DataModel;
 
-public class CsvPoint {
+public class MaritimePoint {
 	protected String csvPointId;
 	protected String csvPointLatitude;
 	protected String csvPointLongitude;
