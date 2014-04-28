@@ -1,8 +1,9 @@
 package com.intactille.jenautils;
 
 public enum OntClassType {
-	item,
-	MaritimePoint,
+	MyFeature,
+	TimedPoint,
+	TimedWay,
 	Ship,
 	Way,
 	Port,

@@ -15,13 +15,14 @@ import com.intactille.distmodel.GeoSparqlHelper;
 
 public class GeoModelFactory {
 	private OntModel model;
-	private String namespace = "http://geometryObject/MaritimeSchema#";
+	private String namespace = "http://geometryObject/GeoTemporelSchema#";
 
-	private OntClass maritimePoint;
-
-	private OntClass ship;
-	private OntClass port;
+	private OntClass myFeature;
+	private OntClass TimedFeature;
+	private OntClass stop;
 	private OntClass way;
+	private OntClass timedWay;
+	private OntClass timedPoint;
 
 	static GeoModelFactory singleton = null;
 
@@ -52,19 +53,22 @@ public class GeoModelFactory {
 				OntClass c = cl.next();
 				OntClassType type = OntClassType.valueOf(c.getLocalName());
 				switch (type) {
+				case MyFeature:
+					break;
 				case Ship:
-					ship = c;
+					TimedFeature = c;
 					break;
 				case Port:
-					port = c;
-					break;
-				case MaritimePoint:
-					maritimePoint = c;
+					stop = c;
 					break;
 				case Way:
 					way = c;
 					break;
-				case item:
+				case TimedWay:
+					way = c;
+					break;
+				case TimedPoint:
+					timedPoint = c;
 					break;
 				default:
 					break;
@@ -83,104 +87,133 @@ public class GeoModelFactory {
 		}
 	}
 
-	public void CreateOntClasses() {
-		model.setNsPrefix("MaririmeData", namespace);
-		AddShipProperty();
-		AddWayProperty();
-		AddPortProperty();
-		AddPointProperty();
+	public OntProperty CreateProperty(OntClass classe, String namespace,
+			String propertyName, String comment, String label, Resource resource) {
+		OntProperty property = model
+				.createOntProperty(namespace + propertyName);
+		property.setDomain(classe);
+		property.setRange(resource);
+
+		// add property
+		classe.addProperty(property, namespace);
+		return property;
 	}
 
-	private void AddPortProperty() {
-		port = model.createClass(namespace + "Port");
-		CreateProperty(way, namespace, "PortId", "l'identifiant de port", " Port id", XSD.ID);
+	public ObjectProperty CreateObjectProperty(OntClass classe,
+			String namespace, String propertyName, String comment,
+			String label, Resource resource) {
+		ObjectProperty objproperty = model.createObjectProperty(namespace
+				+ propertyName);
+		objproperty.setDomain(classe);
+		objproperty.setRange(resource);
 
+		// add objProperty
+		classe.addProperty(objproperty, namespace);
+		return objproperty;
+	}
+
+	public void CreateOntClasses() {
+		model.setNsPrefix("GeoTemporelData", namespace);
+		AddMyFeatureProperty();
+		AddTimedFeatureProperty();
+		AddWayProperty();
+		AddStopProperty();
+		AddTimedPointProperty();
+	}
+
+	private void AddMyFeatureProperty() {
+		CreateProperty(TimedFeature, namespace, "FeatureId",
+				"l'identifiant de feature", "Feature id", XSD.ID);
+		CreateProperty(TimedFeature, namespace, "FeatureName",
+				"le nom de feature", "Feature name", XSD.xstring);
+		CreateProperty(TimedFeature, namespace, "FeatureDescription",
+				"la description sur feature", "Feature description",
+				XSD.xstring);
+		// subclassof
+		DistModel.geosparql.getFeature().addSubClass(myFeature);
+
+	}
+
+	private void AddTimedFeatureProperty() {
+		TimedFeature = model.createClass(namespace + "TimedFeature");
+
+		// list nodes
+		CreateObjectProperty(TimedFeature, namespace, "hasTimedPoints",
+				"tous les positions", "All positions", timedWay);
+
+		// Geometry Node
 		GeoSparqlHelper geosparql = DistModel.geosparql;
-		OntProperty property = CreateObjectProperty(way, namespace, "hasGeometryPolygone", " le surface port", " port polygon", geosparql.getPolygon());
-
+		OntProperty property = CreateObjectProperty(TimedFeature, namespace,
+				"hasGeometryPoint", "la derniere porsition", "Last position",
+				timedPoint);
 		// set super property
 		property.setSuperProperty(geosparql.getHasGeometry());
 
 		// subclassof
-		geosparql.getFeature().addSubClass(way);
+		myFeature.addSubClass(TimedFeature);
 	}
 
 	private void AddWayProperty() {
 		way = model.createClass(namespace + "Way");
-		CreateProperty(way, namespace, "WayId", "l'identifiant de chemain", " Way id", XSD.ID);
 
 		GeoSparqlHelper geosparql = DistModel.geosparql;
-		OntProperty property = CreateObjectProperty(way, namespace, "hasGeometryLine", " les point de chemin", " way points", geosparql.getLineString());
+		OntProperty property = CreateObjectProperty(way, namespace,
+				"hasGeometryLine", "les point de chemin", "Way points",
+				geosparql.getLineString());
 
 		// set super property
 		property.setSuperProperty(geosparql.getHasGeometry());
 
 		// subclassof
-		geosparql.getFeature().addSubClass(way);
+		myFeature.addSubClass(way);
 
 	}
 
-	public OntProperty CreateProperty(OntClass classe, String namespace, String propertyName, String comment, String label, Resource resource) {
-		OntProperty property = model.createOntProperty(namespace + propertyName);
-		property.setDomain(classe);
-		property.setRange(resource);
-		// property.addComment(comment, "fr");
-		// property.setLabel(label, "en");
+	private void AddStopProperty() {
+		stop = model.createClass(namespace + "Stop");
+		CreateProperty(stop, namespace, "StopId", "l'identifiant de port",
+				"Port id", XSD.ID);
+		CreateProperty(stop, namespace, "StopName", "le nom de port",
+				"Port Name", XSD.xstring);
 
-		// add property
-		classe.addProperty(property, namespace);
-
-		return property;
-	}
-
-	public ObjectProperty CreateObjectProperty(OntClass classe, String namespace, String propertyName, String comment, String label, Resource resource) {
-		ObjectProperty objproperty = model.createObjectProperty(namespace + propertyName);
-		objproperty.setDomain(classe);
-		objproperty.setRange(resource);
-		// objproperty.addComment(comment, "fr");
-		// objproperty.setLabel(label, "en");
-
-		// add property
-		classe.addProperty(objproperty, namespace);
-
-		return objproperty;
-	}
-
-	private void AddShipProperty() {
-		ship = model.createClass(namespace + "Ship");
-		CreateProperty(ship, namespace, "ShipId", "l'identifiant de navire", " Navire  id", XSD.ID);
-
-		// list nodes
-		CreateObjectProperty(ship, namespace, "hasPoints", " tous les positions", " all positions", maritimePoint);
-
-		// Geometry Node
 		GeoSparqlHelper geosparql = DistModel.geosparql;
-		OntProperty property = CreateObjectProperty(way, namespace, "hasGeometryPoint", " la derniere  porsition", " last position", maritimePoint);
+		OntProperty property = CreateObjectProperty(stop, namespace,
+				"hasGeometryPolygone", "le surface port", " port polygon",
+				geosparql.getPolygon());
+
 		// set super property
 		property.setSuperProperty(geosparql.getHasGeometry());
 
 		// subclassof
-		DistModel.geosparql.getFeature().addSubClass(ship);
+		myFeature.addSubClass(stop);
 	}
 
-	private void AddPointProperty() {
-		maritimePoint = model.createClass(namespace + "maritimePoint");
-		CreateProperty(maritimePoint, namespace, "csPointId", "l'identifiant de point", "Point id", XSD.ID);
-		CreateProperty(maritimePoint, namespace, "csvPointLatitude", "lotitude de point", "point latitude", XSD.xstring);
-		CreateProperty(maritimePoint, namespace, "csvPointLongitude", "longitude de point", "point longitude", XSD.xstring);
-		CreateProperty(maritimePoint, namespace, "csvPointAltitude", "altitude de point", "point altitude", XSD.xstring);
-		CreateProperty(maritimePoint, namespace, "csvPointDirection", "direction de point", "point direction", XSD.xstring);
-		CreateProperty(maritimePoint, namespace, "csvPointSpeed", "la vitesse de point", "point speed", XSD.xstring);
-		CreateProperty(maritimePoint, namespace, "pointSaveTime", "le temps d'enregistrement", "time", XSD.dateTime);
+	private void AddTimedPointProperty() {
+		timedPoint = model.createClass(namespace + "TimedPoint");
+		CreateProperty(timedPoint, namespace, "TimedPointId",
+				"l'identifiant de point", "Point id", XSD.ID);
+		CreateProperty(timedPoint, namespace, "TimedPointLatitude",
+				"lotitude de point", "point latitude", XSD.xstring);
+		CreateProperty(timedPoint, namespace, "TimedPointLongitude",
+				"longitude de point", "point longitude", XSD.xstring);
+		CreateProperty(timedPoint, namespace, "TimedPointAltitude",
+				"altitude de point", "point altitude", XSD.xstring);
+		CreateProperty(timedPoint, namespace, "TimedPointDirection",
+				"direction de point", "point direction", XSD.xstring);
+		CreateProperty(timedPoint, namespace, "TimedPointSpeed",
+				"la vitesse de point", "point speed", XSD.xstring);
+		CreateProperty(timedPoint, namespace, "TimedPointSaveTime",
+				"le temps d'enregistrement", "time", XSD.dateTime);
 
 		// subclassof
-		DistModel.geosparql.getPoint().addSubClass(maritimePoint);
-		DistModel.geotemporel.getEvent().addSubClass(maritimePoint);
+		DistModel.geosparql.getPoint().addSubClass(timedPoint);
+		// DistModel.geotemporel.getEvent().addSubClass(timedPoint);
 	}
 
 	public void toConsole() {
 		try {
-			model.write(new OutputStreamWriter(System.out, "UTF8"), "RDF/XML-ABBREV");
+			model.write(new OutputStreamWriter(System.out, "UTF8"),
+					"RDF/XML-ABBREV");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -191,15 +224,15 @@ public class GeoModelFactory {
 	}
 
 	public OntClass getShip() {
-		return ship;
+		return TimedFeature;
 	}
 
-	public OntClass getPort() {
-		return port;
+	public OntClass getStop() {
+		return stop;
 	}
 
-	public OntClass getMaritimePoint() {
-		return maritimePoint;
+	public OntClass getTimedPoint() {
+		return timedPoint;
 	}
 
 	public OntClass getWay() {
