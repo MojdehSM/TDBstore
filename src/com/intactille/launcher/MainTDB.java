@@ -14,17 +14,19 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import com.intactille.jenautils.GeoModelFactory;
+import com.intactille.jenautils.LoadMyOntologie;
 
 import DataModel.CsvParser;
 
 public class MainTDB {
-	public static void main(String args[]) throws IOException {
-		LoadFromXml();
+	public static void main(String args[]) throws Exception {
+		LoadMyOntologie.GetInstance();
+		//LoadFromXml();
 		// List<String> list = Arrays.asList("Travail_maison.csv", "Burger.csv",
 		// "Christophe.csv", "Carré du Roi.csv", "Olivier.csv");
 		// parseTest();
 		// // TDButils.run();
-		// CreateJenaModel();
+	 //CreateJenaModel();
 	}
 
 	// public static void parseTest(List<String> files) {
@@ -40,30 +42,19 @@ public class MainTDB {
 		 */
 	}
 
-	public static void CreateJenaModel() {
-		GeoModelFactory model = GeoModelFactory.getModelGeoObjet();
-		model.toConsole();
+	public static void CreateJenaModel() throws Exception  {
+		GeoModelFactory factory = GeoModelFactory.getModelGeoObjet();
+		factory.toConsole();
 	}
 
 	public static void LoadFromXml() {
-		Model model = FileManager.get().loadModel("ressources/geosparql_vocab_all.xml");
+		Model model = FileManager.get().loadModel("ressources/SpatialTemporelOntology.owl");
 		
 		try {
 			model.write(new OutputStreamWriter(System.out, "UTF8"), "RDF/XML-ABBREV");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//			OntModel om = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, model);
-			
-//		ExtendedIterator<OntClass> it = om.listClasses();
-//
-//		while (it.hasNext()) {
-//			OntClass t = it.next();
-//
-//			System.err.println(t.getLocalName());
-//		}
 
 	}
 

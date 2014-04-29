@@ -1,5 +1,7 @@
 package com.intactille.distmodel;
 
+import InUtil.GeoTemporelHelper;
+
 public class DistModel {
 	public static GeoSparqlHelper geosparql;
 	public static GeoTemporelHelper geotemporel;

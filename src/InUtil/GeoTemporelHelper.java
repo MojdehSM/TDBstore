@@ -1,4 +1,4 @@
-package com.intactille.distmodel;
+package InUtil;
 
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;

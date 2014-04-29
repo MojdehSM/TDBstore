@@ -3,8 +3,8 @@ package com.intactille.jenautils;
 public enum OntClassType {
 	MyFeature,
 	TimedPoint,
+	TimedFeature,
 	TimedWay,
-	Ship,
 	Way,
-	Port,
+	stop,
 }

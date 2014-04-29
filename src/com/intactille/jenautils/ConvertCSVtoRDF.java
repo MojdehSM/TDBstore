@@ -15,7 +15,7 @@ public class ConvertCSVtoRDF {
 	CsvParser data;
 	GeoModelFactory model;
 
-	public ConvertCSVtoRDF(CsvParser data) {
+/*	public ConvertCSVtoRDF(CsvParser data) throws Exception {
 		this.data = data;
 		model = GeoModelFactory.getModelGeoObjet();
 	}
@@ -35,7 +35,7 @@ public class ConvertCSVtoRDF {
 	 * @param m
 	 * @param item
 	 */
-	public void ConvertObjectMobilToRDF(Individual m, Ship item) {
+/*	public void ConvertObjectMobilToRDF(Individual m, Ship item) {
 
 		Iterator<OntProperty> stmt = model.getShip().listDeclaredProperties();
 		while (stmt.hasNext()) {
@@ -61,7 +61,7 @@ public class ConvertCSVtoRDF {
 	 * @param item
 	 * @param point
 	 */
-	private void ConvertPointToRDF(Individual item, MaritimePoint point) {
+/*	private void ConvertPointToRDF(Individual item, MaritimePoint point) {
 
 		Iterator<OntProperty> stmt = model.getShip().listDeclaredProperties();
 		Individual m = model.getShip().createIndividual(model.getNamespace() + point.getPointId());
@@ -83,6 +83,5 @@ public class ConvertCSVtoRDF {
 				m.addProperty(currentProperty, point.getPointTime());
 			}
 		}
-	}
-
+	}*/
 }
