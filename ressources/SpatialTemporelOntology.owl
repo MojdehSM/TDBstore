@@ -44,7 +44,6 @@
     <owl:AnnotationProperty rdf:about="&dc;creator"/>
     
 
-
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -53,14 +52,10 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
-
     <!-- http://www.opengis.net/ont/geosparql#hasGeometry -->
 
     <owl:ObjectProperty rdf:about="&geosparql;hasGeometry"/>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#hasFeature -->
 
@@ -70,7 +65,6 @@
         <rdfs:domain rdf:resource="#TimedWay"/>
         <owl:inverseOf rdf:resource="#hasWay"/>
     </owl:ObjectProperty>
-    
 
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#hasGeometryLine -->
@@ -83,7 +77,6 @@
     </owl:ObjectProperty>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#hasGeometryPoint -->
 
     <owl:ObjectProperty rdf:about="#hasGeometryPoint">
@@ -92,7 +85,6 @@
         <rdfs:range rdf:resource="#TimedPoint"/>
     </owl:ObjectProperty>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#hasGeometryPoly -->
 
@@ -103,7 +95,6 @@
     </owl:ObjectProperty>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#hasTimedPoints -->
 
     <owl:ObjectProperty rdf:about="#hasTimedPoints">
@@ -111,7 +102,6 @@
         <rdfs:domain rdf:resource="#TimedWay"/>
     </owl:ObjectProperty>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#hasWay -->
 
@@ -122,7 +112,6 @@
     </owl:ObjectProperty>
     
 
-
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -130,9 +119,6 @@
     //
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
-
-    
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#TPointAlt -->
 
@@ -143,7 +129,6 @@
     </owl:DatatypeProperty>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#TPointLat -->
 
     <owl:DatatypeProperty rdf:about="#TPointLat">
@@ -152,7 +137,6 @@
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#TPointLong -->
 
@@ -173,7 +157,6 @@
     </owl:DatatypeProperty>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#TPointSpeed -->
 
     <owl:DatatypeProperty rdf:about="#TPointSpeed">
@@ -183,7 +166,6 @@
     </owl:DatatypeProperty>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#featureDescription -->
 
     <owl:DatatypeProperty rdf:about="#featureDescription">
@@ -191,7 +173,6 @@
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#featureID -->
 
@@ -202,7 +183,6 @@
     </owl:DatatypeProperty>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#featureName -->
 
     <owl:DatatypeProperty rdf:about="#featureName">
@@ -210,7 +190,6 @@
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#featureType -->
 
@@ -229,32 +208,26 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
 
     <!-- http://www.opengis.net/ont/geosparql#Feature -->
 
     <owl:Class rdf:about="&geosparql;Feature"/>
     
 
-
     <!-- http://www.opengis.net/ont/sf#LineString -->
 
     <owl:Class rdf:about="&sf;LineString"/>
     
-
 
     <!-- http://www.opengis.net/ont/sf#Point -->
 
     <owl:Class rdf:about="&sf;Point"/>
     
 
-
     <!-- http://www.opengis.net/ont/sf#Polygon -->
 
     <owl:Class rdf:about="&sf;Polygon"/>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#Airplaine -->
 
@@ -262,7 +235,6 @@
         <rdfs:subClassOf rdf:resource="#TimedFeature"/>
     </owl:Class>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#MyFeature -->
 
@@ -276,14 +248,12 @@
     </owl:Class>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#Ship -->
 
     <owl:Class rdf:about="#Ship">
         <rdfs:subClassOf rdf:resource="#TimedFeature"/>
     </owl:Class>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#Stop -->
 
@@ -292,14 +262,12 @@
     </owl:Class>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#TimedFeature -->
 
     <owl:Class rdf:about="#TimedFeature">
         <rdfs:subClassOf rdf:resource="#MyFeature"/>
     </owl:Class>
     
-
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#TimedPoint -->
 
@@ -308,11 +276,9 @@
     </owl:Class>
     
 
-
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#TimedWay -->
 
-    <owl:Class rdf:about="#TimedWay"/>
-    
+    <owl:Class rdf:about="#TimedWay"/>   
 
 
     <!-- http://www.semanticweb.org/ontologies/2014/3/SpatialTemporelOntology.owl#Way -->
@@ -321,7 +287,6 @@
         <rdfs:subClassOf rdf:resource="#MyFeature"/>
     </owl:Class>
 </rdf:RDF>
-
 
 
 <!-- Generated by the OWL API (version 2.2.1.1138) http://owlapi.sourceforge.net -->

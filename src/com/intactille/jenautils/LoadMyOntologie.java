@@ -1,6 +1,7 @@
 package com.intactille.jenautils;
 
 import java.io.OutputStreamWriter;
+import org.apache.jena.query.spatial.EntityDefinition;
 import java.io.UnsupportedEncodingException;
 
 import com.hp.hpl.jena.ontology.OntClass;
