@@ -31,8 +31,8 @@ public class MainTDB {
 
 	// public static void parseTest(List<String> files) {
 	public static void parseTest() {
-//		CsvParser pars = new CsvParser("ressources/Travail_maison.csv", ",");
-//		pars.parse();
+		//CsvParser pars = new CsvParser("ressources/Travail_maison.csv", ",");
+		//	pars.parse();
 
 		/*
 		 * for (String file : files) { CsvParser pars = new

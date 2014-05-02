@@ -39,8 +39,8 @@ public class LoadMyOntologie {
 	static public LoadMyOntologie GetInstance() {
 		if (singlenton == null) {
 			singlenton = new LoadMyOntologie();
-			singlenton.getObjectProperty();
-			// singlenton.LoadFromXml();
+			//singlenton.getObjectProperty();
+			singlenton.LoadFromXml();
 			// debug
 			try {
 				singlenton.model.write(new OutputStreamWriter(System.out,
@@ -75,18 +75,16 @@ public class LoadMyOntologie {
 				way = t;
 			System.err.println(t.getLocalName());
 		}
-
 	}
 
 	public OntProperty getObjectProperty() {
-		ExtendedIterator<OntProperty> featurePropertys = timedFeature
-				.listDeclaredProperties();
+		ExtendedIterator<OntProperty> featurePropertys = timedFeature.listDeclaredProperties(true);
 		while (featurePropertys.hasNext()) {
 			OntProperty type = featurePropertys.next();
-			//if (type.isObjectProperty()) {
-				System.err.println(type.getLocalName());
-				return type;
-			//}
+			// if (type.isObjectProperty()) {
+			System.err.println(type.getLocalName());
+			return type;
+			// }
 		}
 		return null;
 	}
