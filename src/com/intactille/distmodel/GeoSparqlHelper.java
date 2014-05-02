@@ -25,6 +25,7 @@ public class GeoSparqlHelper {
 	OntClass polygon;
 
 	private GeoSparqlHelper() {
+		
 	}
 
 	public OntModel getModel() {
@@ -59,7 +60,6 @@ public class GeoSparqlHelper {
 			if (type.getLocalName() == "hasGeometry")
 				return type;
 		}
-		//int x = 1 / 0;
 		return null;
 	}
 
