@@ -1,4 +1,4 @@
-package CsvParser;
+package InUtil;
 
 public class Feature {
 	public String pointId;

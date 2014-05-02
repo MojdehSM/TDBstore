@@ -10,8 +10,6 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.vocabulary.XSD;
-import com.intactille.distmodel.DistModel;
-import com.intactille.distmodel.GeoSparqlHelper;
 
 public class CreateOntModel {
 	OntModel model = null;
@@ -78,7 +76,7 @@ public class CreateOntModel {
 	private void AddWayProperty() {
 		way = model.createClass(namespace + "Way");
 
-		GeoSparqlHelper geosparql = DistModel.geosparql;
+		GeoSparqlModel geosparql = DistModel.geosparql;
 		OntProperty property = CreateObjectProperty(way, namespace,
 				"hasGeometryLine", "les point de chemin", "WayPoints",
 				geosparql.getLineString());
@@ -94,7 +92,7 @@ public class CreateOntModel {
 	private void AddStopProperty() {
 		stop = model.createClass(namespace + "Stop");
 
-		GeoSparqlHelper geosparql = DistModel.geosparql;
+		GeoSparqlModel geosparql = DistModel.geosparql;
 		OntProperty property = CreateObjectProperty(stop, namespace,
 				"hasGeometryPoly", "le surface de stop", "StopPolygon",
 				geosparql.getPolygon());
@@ -110,7 +108,7 @@ public class CreateOntModel {
 		timedFeature = model.createClass(namespace + "TimedFeature");
 
 		// Last position of objectGeometry
-		GeoSparqlHelper geosparql = DistModel.geosparql;
+		GeoSparqlModel geosparql = DistModel.geosparql;
 		OntProperty lastPositionPoint = CreateObjectProperty(timedFeature,
 				namespace, "hasGeometryPoint", "La derniere porsition",
 				"Last position", timedPoint);
@@ -161,7 +159,7 @@ public class CreateOntModel {
 	}
 
 	private void CreateDataTypesProperty() {
-		GeoSparqlHelper geosparql = DistModel.geosparql;
+		GeoSparqlModel geosparql = DistModel.geosparql;
 
 		// create WKTdataTypeProperty
 		DatatypeProperty asWKT = model.createDatatypeProperty(namespace

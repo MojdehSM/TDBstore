@@ -1,4 +1,4 @@
-package DataModel;
+package InUtil;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,32 +9,32 @@ import java.util.List;
 public class CsvParser {
 	String path;
 	String deliminator = "\t";
-	List<Ship> items = new LinkedList<Ship>();
+	List<MyFeature> items = new LinkedList<MyFeature>();
 
 	public CsvParser(String filename, String deliminator) {
 		path = filename;
 		this.deliminator = deliminator;
 	}
 
-	public List<Ship> getItems() {
+	public List<MyFeature> getItems() {
 		return items;
 	}
 
-	public List<Ship> parse() {
+	public List<MyFeature> parse() {
 
-		List<Ship> lst = new LinkedList<Ship>();
+		List<MyFeature> lst = new LinkedList<MyFeature>();
 		BufferedReader br = null;
 
 		try {
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(path));
 			String[] strs = null;
-			Ship navire = new Ship();
+			MyFeature navire = new MyFeature();
 			while ((sCurrentLine = br.readLine()) != null) {
 				strs = sCurrentLine.split(deliminator);
 				MaritimePoint point = new MaritimePoint();
 				if (strs.length <= 4) {
-					navire.setId(Long.parseLong(strs[0]));
+	//				navire.setId(Long.parseLong(strs[0]));
 					//feature.featureName = strs[1];
 					//feature.featureType = strs[2];
 					//feature.fDescription = strs[3];
@@ -50,7 +50,7 @@ public class CsvParser {
 						point.csvPointDirection = strs[4];
 						point.csvPointSpeed = strs[5];
 						point.csvPointTime = strs[6];
-						navire.parcours.add(point);
+	//					navire.parcours.add(point);
 					//}
 				}
 				//if (feature.getFeatureType().equals("way")) {

@@ -1,10 +1,8 @@
-package com.intactille.jenautils;
+package InUtil;
 
+import com.intactille.models.GeoModel;
 import java.util.Iterator;
 
-import DataModel.CsvParser;
-import DataModel.Ship;
-import DataModel.MaritimePoint;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntProperty;
@@ -13,11 +11,11 @@ import com.hp.hpl.jena.rdf.model.Model;
 public class ConvertCSVtoRDF {
 
 	CsvParser data;
-	GeoModelFactory model;
+	GeoModel model;
 
 /*	public ConvertCSVtoRDF(CsvParser data) throws Exception {
 		this.data = data;
-		model = GeoModelFactory.getModelGeoObjet();
+		model = GeoModel.getModelGeoObjet();
 	}
 
 	public void convertAll() {

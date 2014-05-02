@@ -1,4 +1,4 @@
-package DataModel;
+package InUtil;
 
 public class MaritimePoint {
 	protected String csvPointId;

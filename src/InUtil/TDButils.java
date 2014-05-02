@@ -1,4 +1,4 @@
-package com.intactille.jenautils;
+package InUtil;
 
 import java.io.File;
 import java.io.StringReader;
@@ -15,6 +15,7 @@ import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 public class TDButils {
+	
 	public static String ONT1 = "http://example.org/test#ont1";
 	public static String ONT2 = "http://example.org/test#ont2";
 	// the model we're going to load, which imports ont1 and ont2
@@ -93,9 +94,10 @@ public class TDButils {
  * public static OntModel createTDBModel() {
  * 
  * String directory = "data"; Dataset dataset =
- * TDBFactory.createDataset(directory); Model model = dataset.getDefaultModel();
- * model.close(); OntModel mdb =
- * ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, model);
+ * TDBFactory.createDataset(directory); 
+ * Model model = dataset.getDefaultModel();
+ * model.close(); 
+ * OntModel mdb =ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, model);
  * 
  * dataset.close(); return mdb; }
  */

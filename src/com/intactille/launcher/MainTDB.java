@@ -1,32 +1,28 @@
 package com.intactille.launcher;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.List;
-
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
-import com.hp.hpl.jena.util.iterator.ExtendedIterator;
-import com.intactille.jenautils.GeoModelFactory;
-import com.intactille.jenautils.LoadMyOntologie;
+import com.intactille.jenautils.CreateOntology;
+import com.intactille.models.GeoModel;
+import java.util.List;
 
-import DataModel.CsvParser;
 
 public class MainTDB {
 	public static void main(String args[]) throws Exception {
-		LoadMyOntologie.GetInstance();
+            GetSavedModel();
+                        //LoadFromXml();
+		//CreateOntology.GetInstance();
 		//LoadFromXml();
 		// List<String> list = Arrays.asList("Travail_maison.csv", "Burger.csv",
 		// "Christophe.csv", "Carré du Roi.csv", "Olivier.csv");
 		// parseTest();
-		// // TDButils.run();
-	 //CreateJenaModel();
+        //CreateJenaModel();
 	}
 
 	// public static void parseTest(List<String> files) {
@@ -43,18 +39,33 @@ public class MainTDB {
 	}
 
 	public static void CreateJenaModel() throws Exception  {
-		GeoModelFactory factory = GeoModelFactory.getModelGeoObjet();
+		GeoModel factory = GeoModel.getInstance();
 		factory.toConsole();
 	}
 
+        public static void GetSavedModel (){
+          //  CreateOntology.CreateOntologyFromFile("ressources/SpatialTemporelOntology.owl");
+            GeoModel.getInstance().toConsole();
+            
+        }
+        
 	public static void LoadFromXml() {
 		Model model = FileManager.get().loadModel("ressources/SpatialTemporelOntology.owl");
 		
+                OntModel on = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM,model);
 		try {
 			model.write(new OutputStreamWriter(System.out, "UTF8"), "RDF/XML-ABBREV");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+                
+                List<OntClass> cls = on.listClasses().toList();
+                
+                for(OntClass cl :cls)
+                    System.err.println(cl.getLocalName() );
+                
+                
+                
 
 	}
 
