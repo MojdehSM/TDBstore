@@ -6,18 +6,22 @@ import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDBFactory;
-import com.hp.hpl.jena.util.FileManager;
 
 public class TDBUtils implements IPersistance {
 
 	@Override
 	public OntModel getModel() {
-		String assemblerFile = "data/tdb-assembler.ttl";
-		Dataset dataset = TDBFactory.assembleDataset(assemblerFile);
+		String dir = "data";
+		Dataset dataset = TDBFactory.createDataset(dir);
 		//Model model = ModelFactory.createDefaultModel();
+
+                
+                dataset.begin(ReadWrite.READ);
 		Model model = dataset.getDefaultModel();
-		OntModel tdb = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF,
+		dataset.end();
+                OntModel tdb = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM,
 				model);
+                
 		return tdb;
 	}
 
@@ -26,22 +30,27 @@ public class TDBUtils implements IPersistance {
 		
 		//Create or connect to a TDB-backed dataset
 		String directory = "data"; 
-		Dataset dataset =TDBFactory.createDataset(directory); 
-		//Model model = ModelFactory.createDefaultModel();
+		Dataset dataset =TDBFactory.createDataset(directory);
+                
+                dataset.begin(ReadWrite.WRITE);
 		Model model = dataset.getDefaultModel();
+		dataset.end();
+                
+		//Model model = ModelFactory.createDefaultModel();
+		//Model model = dataset.getDefaultModel();
 
-		dataset.begin(ReadWrite.WRITE);
+		//dataset.begin(ReadWrite.WRITE);
 		//Model model = dataset.getDefaultModel();
 		// read the input file
 		//String source = "D:\\Project\\Store_DB\\tmp\\trail_1.rdf";
-		 FileManager.get().readModel( model, directory);
-		model.close();
-		dataset.end();
+		// FileManager.get().readModel( model, directory);
+		//model.close();
+		//dataset.end();
 	}
 
 	@Override
 	public void emptyModel() {
-
+            
 	}
 
 }

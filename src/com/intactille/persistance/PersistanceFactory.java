@@ -17,7 +17,7 @@ public class PersistanceFactory {
     public static IPersistance getCurrentPersistance(PersistanceType t){
         switch(t){
             case TDB:
-                return null;
+                return new TDBUtils();
             case SDB:
                 return new SDBUtils();
         }

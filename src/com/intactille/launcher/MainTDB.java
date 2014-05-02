@@ -44,8 +44,10 @@ public class MainTDB {
 	}
 
         public static void GetSavedModel (){
-          //  CreateOntology.CreateOntologyFromFile("ressources/SpatialTemporelOntology.owl");
-            GeoModel.getInstance().toConsole();
+            CreateOntology.CreateOntologyFromFile("ressources/SpatialTemporelOntology.owl");
+            //GeoModel.getInstance().toConsole();
+            
+            //PersistanceFactory.getCurrentPersistance(PersistanceFactory.PersistanceType.TDB).createModel();
             
         }
         
