@@ -1,4 +1,4 @@
-package com.intactille.distmodel;
+package InUtil;
 
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -12,9 +12,9 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
-public class GeoSparqlHelper {
+public class GeoSparqlModel {
 
-	private static GeoSparqlHelper singlenton;
+	private static GeoSparqlModel singlenton;
 	OntModel model = null;
 
 	String namespace = "http://www.opengis.net/ont/geosparql#";
@@ -24,7 +24,7 @@ public class GeoSparqlHelper {
 	OntClass lineString;
 	OntClass polygon;
 
-	private GeoSparqlHelper() {
+	private GeoSparqlModel() {
 	}
 
 	public OntModel getModel() {
@@ -93,9 +93,9 @@ public class GeoSparqlHelper {
 		return null;
 	}
 
-	static public GeoSparqlHelper GetInstance() {
+	static public GeoSparqlModel GetInstance() {
 		if (singlenton == null) {
-			singlenton = new GeoSparqlHelper();
+			singlenton = new GeoSparqlModel();
 			singlenton.LoadFromXml();
 			// debug
 			try {

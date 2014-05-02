@@ -1,5 +1,6 @@
 package com.intactille.jenautils;
 
+import com.intactille.models.GeoModel;
 import java.util.Iterator;
 
 import DataModel.CsvParser;
@@ -13,11 +14,11 @@ import com.hp.hpl.jena.rdf.model.Model;
 public class ConvertCSVtoRDF {
 
 	CsvParser data;
-	GeoModelFactory model;
+	GeoModel model;
 
 /*	public ConvertCSVtoRDF(CsvParser data) throws Exception {
 		this.data = data;
-		model = GeoModelFactory.getModelGeoObjet();
+		model = GeoModel.getModelGeoObjet();
 	}
 
 	public void convertAll() {
