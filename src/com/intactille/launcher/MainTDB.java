@@ -12,7 +12,6 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.intactille.jenautils.CreateOntology;
 import com.intactille.models.GeoModel;
-import com.intactille.persistance.PersistanceFactory;
 
 import java.util.List;
 
