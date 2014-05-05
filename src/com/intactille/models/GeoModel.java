@@ -7,17 +7,6 @@ import java.util.Iterator;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
-import static com.intactille.models.GeoType.Feature;
-import static com.intactille.models.GeoType.Geometry;
-import static com.intactille.models.GeoType.LineString;
-import static com.intactille.models.GeoType.MyFeature;
-import static com.intactille.models.GeoType.Point;
-import static com.intactille.models.GeoType.Polygon;
-import static com.intactille.models.GeoType.Stop;
-import static com.intactille.models.GeoType.TimedFeature;
-import static com.intactille.models.GeoType.TimedPoint;
-import static com.intactille.models.GeoType.TimedWay;
-import static com.intactille.models.GeoType.Way;
 import com.intactille.persistance.PersistanceFactory;
 
 public class GeoModel {
@@ -57,7 +46,7 @@ public class GeoModel {
      */
     private void initModel() {
         System.out.println("Model init ...");
-        model = PersistanceFactory.getCurrentPersistance(PersistanceFactory.PersistanceType.TDB).getModel();
+        model = PersistanceFactory.getCurrentPersistance(PersistanceFactory.PersistanceType.SDB).getModel();
 
         System.out.println("Model Parse Classes");
         Iterator<OntClass> cl = model.listClasses();
@@ -119,7 +108,7 @@ public class GeoModel {
                     Iterator<OntProperty> pso = c.listDeclaredProperties();
                     while (pso.hasNext()) {
                         OntProperty p = pso.next();
-                        System.out.println(p.getLocalName());
+                        System.err.println(p.getLocalName());
                     }
 
                 } while (cl.hasNext());

@@ -1,8 +1,9 @@
 package InUtil;
 
+import com.intactile.serialiser.CsvParser;
 import com.intactille.models.GeoModel;
-import java.util.Iterator;
 
+import java.util.Iterator;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntProperty;

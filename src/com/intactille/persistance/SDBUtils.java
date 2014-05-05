@@ -40,7 +40,7 @@ public class SDBUtils implements IPersistance {
 			conn = new SDBConnection(jdbcURL, user, psw);
 			System.out.println("MODEL GETTING ...");
 		} catch (Exception e) {
-			System.out.println("CONNECTION FAILED !!");
+			System.out.println("CONNECTION FAILED!!");
 			e.printStackTrace();
 		}
 		store = SDBFactory.connectStore(conn, storeDesc);

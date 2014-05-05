@@ -22,23 +22,22 @@ public class TDBUtils implements IPersistance {
     public OntModel getModel() {
 
         Dataset dataset = TDBFactory.createDataset(directory);
-        System.out.println("Starting read:");
+        System.out.println("Starting read!");
         Model model = null;
 
-        dataset.begin(ReadWrite.READ);
+      /*  dataset.begin(ReadWrite.READ);
         // Get model inside the transaction
         Model model1 = dataset.getNamedModel(MODEL_1);
         OntModel ontModel2
                 = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM,
                         model1);
 
-        listClasses(ontModel2);
-        dataset.end();
+      //  listClasses(ontModel2);
+        dataset.end();*/
 
         dataset.begin(ReadWrite.WRITE);
         // Get model inside the transaction
         model = dataset.getNamedModel(MODEL_1);
-
         OntModel ontModel
                 = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM,
                         model);
@@ -79,7 +78,7 @@ public class TDBUtils implements IPersistance {
         Dataset dataset = TDBFactory.createDataset(directory);
         OntModel ontModel = ModelFactory.createOntologyModel();
 
-        System.out.println("Starting write:");
+        System.out.println("Starting write!");
         dataset.addNamedModel(MODEL_1, ontModel);
         dataset.begin(ReadWrite.WRITE);
         try {

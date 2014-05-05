@@ -25,7 +25,7 @@ public class CreateOntology {
 
 		// get persistence model
 		IPersistance persistance = PersistanceFactory
-				.getCurrentPersistance(PersistanceFactory.PersistanceType.TDB);
+				.getCurrentPersistance(PersistanceFactory.PersistanceType.SDB);
 		persistance.emptyModel();
 		persistance.createModel();
 
