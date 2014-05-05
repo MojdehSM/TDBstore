@@ -46,7 +46,7 @@ public class GeoModel {
      */
     private void initModel() {
         System.out.println("Model init ...");
-        model = PersistanceFactory.getCurrentPersistance(PersistanceFactory.PersistanceType.SDB).getModel();
+        model = PersistanceFactory.getCurrentPersistance(PersistanceFactory.PersistanceType.TDB).getModel();
 
         System.out.println("Model Parse Classes");
         Iterator<OntClass> cl = model.listClasses();
@@ -60,7 +60,7 @@ public class GeoModel {
                     GeoType type = GeoType.Unknown;
                     try {
                         type = GeoType.valueOf(c.getLocalName());
-                    } catch (IllegalArgumentException e) {
+                    } catch (Exception e) {
                         System.err.println("unkown :"+ c.getLocalName());
                         type = GeoType.Unknown;
                     }
