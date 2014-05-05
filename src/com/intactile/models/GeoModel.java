@@ -1,4 +1,4 @@
-package com.intactille.models;
+package com.intactile.models;
 
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -7,7 +7,7 @@ import java.util.Iterator;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
-import com.intactille.persistance.PersistanceFactory;
+import com.intactile.persistance.PersistanceFactory;
 
 public class GeoModel {
 

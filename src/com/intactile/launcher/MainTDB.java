@@ -1,4 +1,4 @@
-package com.intactille.launcher;
+package com.intactile.launcher;
 
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -10,9 +10,9 @@ import java.io.UnsupportedEncodingException;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
+import com.intactile.jenautils.CreateOntology;
+import com.intactile.models.GeoModel;
 import com.intactile.serialiser.CsvParser;
-import com.intactille.jenautils.CreateOntology;
-import com.intactille.models.GeoModel;
 
 import java.util.List;
 

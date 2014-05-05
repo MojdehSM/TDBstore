@@ -1,4 +1,4 @@
-package com.intactille.models;
+package com.intactile.models;
 
 public enum GeoType {
     Unknown,

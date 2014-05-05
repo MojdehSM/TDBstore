@@ -1,7 +1,7 @@
 package InUtil;
 
+import com.intactile.models.GeoModel;
 import com.intactile.serialiser.CsvParser;
-import com.intactille.models.GeoModel;
 
 import java.util.Iterator;
 

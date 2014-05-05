@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intactille.persistance;
+package com.intactile.persistance;
 
 import com.hp.hpl.jena.ontology.OntModel;
 

@@ -1,11 +1,11 @@
-package com.intactille.jenautils;
+package com.intactile.jenautils;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.FileManager;
-import com.intactille.persistance.IPersistance;
-import com.intactille.persistance.PersistanceFactory;
+import com.intactile.persistance.IPersistance;
+import com.intactile.persistance.PersistanceFactory;
 
 /**
  * Must be called one time in programme

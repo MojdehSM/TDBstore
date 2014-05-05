@@ -1,4 +1,4 @@
-package com.intactille.persistance;
+package com.intactile.persistance;
 
 
 import com.hp.hpl.jena.ontology.OntClass;
