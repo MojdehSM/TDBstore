@@ -1,5 +1,6 @@
 package com.intactile.jenautils;
 
+import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
@@ -25,19 +26,21 @@ public class CreateOntology {
 
 		// get persistence model
 		IPersistance persistance = PersistanceFactory
-				.getCurrentPersistance(PersistanceFactory.PersistanceType.SDB);
+				.getCurrentPersistance(PersistanceFactory.PersistanceType.TDB);
 		persistance.emptyModel();
 		persistance.createModel();
 
 		// model output
-		Model modelClone = persistance.getModel();
+		OntModel modelClone = persistance.getModel();
 
 		// put the statement of model input in persistence model output
 		StmtIterator stmts = modelOrigin.listStatements();
 		while (stmts.hasNext()) {
 			Statement stmt = stmts.next();
+			System.out.println(stmt.toString());
 			modelClone.add(stmt);
 		}
+		// System.err.println(modelClone.listClasses().toList().size());
 		modelClone.close();
 	}
 }
