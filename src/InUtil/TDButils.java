@@ -1,8 +1,12 @@
 package InUtil;
 
 import java.io.File;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
+import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Dataset;
@@ -10,6 +14,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.tdb.TDB;
 import com.hp.hpl.jena.tdb.TDBFactory;
+import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -113,3 +118,23 @@ public class TDButils {
  * dataset); rs = qExec.execSelect(); try { ResultSetFormatter.out(rs); }
  * finally { qExec.close(); } } finally { dataset.end(); }
  */
+
+
+/*public static void LoadFromXml() {
+    Model model = FileManager.get().loadModel(
+            "ressources/SpatialTemporelOntology.owl");
+
+    OntModel on = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM,
+            model);
+    try {
+        model.write(new OutputStreamWriter(System.out, "UTF8"),
+                "RDF/XML-ABBREV");
+    } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+    }
+    List<OntClass> cls = on.listClasses().toList();
+
+    for (OntClass cl : cls) {
+        System.err.println(cl.getLocalName());
+    }
+}*/

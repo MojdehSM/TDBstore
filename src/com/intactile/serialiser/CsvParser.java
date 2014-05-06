@@ -33,10 +33,10 @@ public class CsvParser {
 				strs = sCurrentLine.split(deliminator);
 				TimedPoint tpoint = new TimedPoint();
 				if (strs.length <= 4) {
-					timedFeature.getItemId();
-					timedFeature.geoItemName = strs[1];
-					timedFeature.geoItemType = strs[2];
-					timedFeature.geoItemDescription = strs[3];
+					timedFeature.getTFeatureId();
+					timedFeature.tFeatureName = strs[1];
+					timedFeature.tFeatureType = strs[2];
+					timedFeature.tFeatureDescription = strs[3];
 					timedFeaturelst.add(timedFeature);
 
 				} else if (strs.length > 4) {
@@ -47,7 +47,7 @@ public class CsvParser {
 					tpoint.tPointDirection = strs[4];
 					tpoint.tPointSpeed = strs[5];
 					tpoint.tPointTime = strs[6];
-					timedFeature.parcours.add(tpoint);
+					timedFeature.tFeatureWay.add(tpoint);
 				}
 	
 				for (int i = 0; i < strs.length; i++) {

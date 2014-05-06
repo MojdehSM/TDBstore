@@ -59,7 +59,6 @@ public class GeoSparqlModel {
 			if (type.getLocalName() == "hasGeometry")
 				return type;
 		}
-		//int x = 1 / 0;
 		return null;
 	}
 
@@ -122,6 +121,7 @@ public class GeoSparqlModel {
 			else if (t.getLocalName().equals("Geometry"))
 				geometry = t;
 			else if (t.getLocalName().equals("Point"))
+				
 				point = t;
 			else if (t.getLocalName().equals("LineString"))
 				lineString = t;
