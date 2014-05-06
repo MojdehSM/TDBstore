@@ -3,6 +3,10 @@ package com.intactile.serialiser;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
+/**
+*
+* @author Mojdeh
+*/
 public class TimedPoint implements ITimedPoint{
 	
 	public static GeoSparqlModelFromXML geosparql;
@@ -21,7 +25,8 @@ public class TimedPoint implements ITimedPoint{
 		ExtendedIterator<OntProperty> geometryProperty = geosparql.getGeometry().listDeclaredProperties();
 		while (geometryProperty.hasNext()) {
 			OntProperty type = geometryProperty.next();
-			if (type.getLocalName() == "wktLiteral")
+			if (type.getLocalName().equals("asWKT"))
+				//type.getPropertyValue(type);
 				return type;
 		}
 		return null;

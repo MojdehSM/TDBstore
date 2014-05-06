@@ -11,6 +11,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+import com.intactile.models.GeoType;
 
 public class GeoSparqlModelFromXML {
 	private static GeoSparqlModelFromXML singlenton;
@@ -31,7 +32,7 @@ public class GeoSparqlModelFromXML {
 	OntProperty simple;
 	OntProperty hasGeo;
 	OntProperty defaultGeo;
-	
+
 	private GeoSparqlModelFromXML() {
 	}
 
@@ -59,13 +60,13 @@ public class GeoSparqlModelFromXML {
 	public OntClass getLineString() {
 		return lineString;
 	}
-	
+
 	static public GeoSparqlModelFromXML GetInstance() {
 		if (singlenton == null) {
 			singlenton = new GeoSparqlModelFromXML();
 			singlenton.getModelClassesFromXML();
-			//singlenton.getGeometryPropertys();
-			//singlenton.getFeaturePropertys();
+			// singlenton.getGeometryPropertys();
+			// singlenton.getFeaturePropertys();
 			// debug
 			try {
 				singlenton.model.write(new OutputStreamWriter(System.out,
@@ -76,7 +77,7 @@ public class GeoSparqlModelFromXML {
 		}
 		return singlenton;
 	}
-	
+
 	private void getModelClassesFromXML() {
 		Model base = FileManager.get().loadModel(
 				"ressources/geosparql_vocab_all.xml");
@@ -89,7 +90,7 @@ public class GeoSparqlModelFromXML {
 				feature = modelClass;
 			else if (modelClass.getLocalName().equals("Geometry"))
 				geometry = modelClass;
-			else if (modelClass.getLocalName().equals("Point"))			
+			else if (modelClass.getLocalName().equals("Point"))
 				point = modelClass;
 			else if (modelClass.getLocalName().equals("LineString"))
 				lineString = modelClass;
@@ -98,38 +99,41 @@ public class GeoSparqlModelFromXML {
 			System.err.println(modelClass.getLocalName());
 		}
 	}
-	
-	private void getGeometryPropertys() {
-		ExtendedIterator<OntProperty> geometryPropertys = geometry.listDeclaredProperties();
+
+	public OntProperty getGeometryPropertys() {
+		ExtendedIterator<OntProperty> geometryPropertys = geometry
+				.listDeclaredProperties();
 		while (geometryPropertys.hasNext()) {
 			OntProperty gProperty = geometryPropertys.next();
-			
+
 			if (gProperty.getLocalName().equals("asWKT"))
 				asWKT = gProperty;
 			else if (gProperty.getLocalName().equals("asGML"))
 				asGML = gProperty;
-			else if (gProperty.getLocalName().equals("coordinateDimension"))		
+			else if (gProperty.getLocalName().equals("coordinateDimension"))
 				coordinateDim = gProperty;
-			else if (gProperty.getLocalName().equals("dimension"))		
+			else if (gProperty.getLocalName().equals("dimension"))
 				dimension = gProperty;
-			else if (gProperty.getLocalName().equals("hasSerialization"))		
+			else if (gProperty.getLocalName().equals("hasSerialization"))
 				hasSerialization = gProperty;
-			else if (gProperty.getLocalName().equals("spatialDimension"))		
+			else if (gProperty.getLocalName().equals("spatialDimension"))
 				spatialDim = gProperty;
-			else if (gProperty.getLocalName().equals("isEmpty"))		
+			else if (gProperty.getLocalName().equals("isEmpty"))
 				empty = gProperty;
-			else if (gProperty.getLocalName().equals("isSimple"))		
+			else if (gProperty.getLocalName().equals("isSimple"))
 				simple = gProperty;
 			System.err.println(gProperty.getLocalName());
 		}
+		return asGML;
 
 	}
-	
+
 	private void getFeaturePropertys() {
-		ExtendedIterator<OntProperty> featurePropertys = feature.listDeclaredProperties();
+		ExtendedIterator<OntProperty> featurePropertys = feature
+				.listDeclaredProperties();
 		while (featurePropertys.hasNext()) {
 			OntProperty fProperty = featurePropertys.next();
-			
+
 			if (fProperty.getLocalName().equals("hasGeometry"))
 				hasGeo = fProperty;
 			else if (fProperty.getLocalName().equals("defaultGeometry"))
