@@ -11,174 +11,178 @@ import com.intactile.persistance.PersistanceFactory;
 
 public class GeoModel {
 
-	static GeoModel singleton = null;
-	private OntModel model;
-	// name space
-	private String ns = "http://geometryObject/GeoTemporelSchema#";
-	private String nsGeosparl = "https://www.opengis.net/ont/geosparql#";
-	// myclasses
-	private OntClass myFeature;
-	private OntClass timedPoint;
-	private OntClass timedFeature;
-	private OntClass timedWay;
-	private OntClass stop;
-	private OntClass way;
-	// geosparql class
-	private OntClass feature;
-	private OntClass geometry;
-	private OntClass point;
-	private OntClass lineString;
-	private OntClass polygon;
-	private OntClass curve;
-	private OntClass surface;
+    static GeoModel singleton = null;
+    private OntModel model;
+    // name space
+    private String ns = "http://geometryObject/GeoTemporelSchema#";
+    private String nsGeosparl = "https://www.opengis.net/ont/geosparql#";
+    // myclasses
+    private OntClass myFeature;
+    private OntClass timedPoint;
+    private OntClass timedFeature;
+    private OntClass timedWay;
+    private OntClass stop;
+    private OntClass way;
+    // geosparql class
+    private OntClass feature;
+    private OntClass geometry;
+    private OntClass point;
+    private OntClass lineString;
+    private OntClass polygon;
+    private OntClass curve;
+    private OntClass surface;
 
-	private GeoModel() {
-		initModel();
-	}
+    public OntModel getModel() {
+        return model;
+    }
 
-	public static GeoModel getInstance() {
-		if (singleton == null) {
-			singleton = new GeoModel();
-		}
-		return singleton;
-	}
+    private GeoModel() {
+        initModel();
+    }
 
-	/**
-	 * Init Model
-	 */
-	private void initModel() {
-		System.out.println("Model init ...");
-		model = PersistanceFactory.getCurrentPersistance(
-				PersistanceFactory.PersistanceType.TDB).getModel();
+    public static GeoModel getInstance() {
+        if (singleton == null) {
+            singleton = new GeoModel();
+        }
+        return singleton;
+    }
 
-		System.out.println("Model Parse Classes");
-		Iterator<OntClass> cl = model.listClasses();
-		try {
-			// if base is created
-			if (cl.hasNext()) {
-				System.out.println("Getting existing ");
-				do {
-					OntClass c = cl.next();
-					GeoType type = GeoType.Unknown;
-					try {
-						type = GeoType.valueOf(c.getLocalName());
-					} catch (Exception e) {
-						System.err.println("unkown :" + c.getLocalName());
-						type = GeoType.Unknown;
-					}
+    /**
+     * Init Model
+     */
+    private void initModel() {
+        System.out.println("Model init ...");
+        model = PersistanceFactory.getCurrentPersistance(
+                PersistanceFactory.PersistanceType.TDB).getModel();
 
-					switch (type) {
-					case MyFeature:
-						myFeature = c;
-						break;
-					case TimedPoint:
-						timedPoint = c;
-						break;
-					case TimedFeature:
-						timedFeature = c;
-						break;
-					case TimedWay:
-						timedWay = c;
-						break;
-					case Stop:
-						stop = c;
-						break;
-					case Way:
-						way = c;
-						break;
+        System.out.println("Model Parse Classes");
+        Iterator<OntClass> cl = model.listClasses();
+        try {
+            // if base is created
+            if (cl.hasNext()) {
+                System.out.println("Getting existing ");
+                do {
+                    OntClass c = cl.next();
+                    GeoType type = GeoType.Unknown;
+                    try {
+                        type = GeoType.valueOf(c.getLocalName());
+                    } catch (Exception e) {
+                        System.err.println("unkown :" + c.getLocalName());
+                        type = GeoType.Unknown;
+                    }
 
-					// LOAD GEO SPARQL CLASS
-					case Feature:
-						feature = c;
-						break;
-					case Geometry:
-						geometry = c;
-						break;
-					case Point:
-						point = c;
-						break;
-					case LineString:
-						lineString = c;
-						break;
-					case Polygon:
-						polygon = c;
-						break;
-					case Surface:
-						surface = c;
-						break;
-					case Curve:
-						curve = c;
-						break;
+                    switch (type) {
+                        case MyFeature:
+                            myFeature = c;
+                            break;
+                        case TimedPoint:
+                            timedPoint = c;
+                            break;
+                        case TimedFeature:
+                            timedFeature = c;
+                            break;
+                        case TimedWay:
+                            timedWay = c;
+                            break;
+                        case Stop:
+                            stop = c;
+                            break;
+                        case Way:
+                            way = c;
+                            break;
 
-					default:
-						break;
-					}
-					System.err.println(c.getLocalName());
-					Iterator<OntProperty> pso = c.listDeclaredProperties();
-					while (pso.hasNext()) {
-						OntProperty p = pso.next();
-						System.out.println(p.getLocalName());
-					}
-				} while (cl.hasNext());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+                        // LOAD GEO SPARQL CLASS
+                        case Feature:
+                            feature = c;
+                            break;
+                        case Geometry:
+                            geometry = c;
+                            break;
+                        case Point:
+                            point = c;
+                            break;
+                        case LineString:
+                            lineString = c;
+                            break;
+                        case Polygon:
+                            polygon = c;
+                            break;
+                        case Surface:
+                            surface = c;
+                            break;
+                        case Curve:
+                            curve = c;
+                            break;
 
-	public OntClass getOntClass(GeoType type) {
-		switch (type) {
-		case MyFeature:
-			return myFeature;
+                        default:
+                            break;
+                    }
+                    System.err.println(c.getLocalName());
+                    Iterator<OntProperty> pso = c.listDeclaredProperties();
+                    while (pso.hasNext()) {
+                        OntProperty p = pso.next();
+                        System.out.println(p.getLocalName());
+                    }
+                } while (cl.hasNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-		case TimedPoint:
-			return timedPoint;
+    public OntClass getOntClass(GeoType type) {
+        switch (type) {
+            case MyFeature:
+                return myFeature;
 
-		case TimedFeature:
-			return timedFeature;
+            case TimedPoint:
+                return timedPoint;
 
-		case TimedWay:
-			return timedWay;
+            case TimedFeature:
+                return timedFeature;
 
-		case Stop:
-			return stop;
+            case TimedWay:
+                return timedWay;
 
-		case Way:
-			return way;
+            case Stop:
+                return stop;
 
-			// LOAD GEOSPARQL CLASS
-		case Feature:
-			return feature;
+            case Way:
+                return way;
 
-		case Geometry:
-			return geometry;
+            // LOAD GEOSPARQL CLASS
+            case Feature:
+                return feature;
 
-		case Point:
-			return point;
+            case Geometry:
+                return geometry;
 
-		case LineString:
-			return lineString;
+            case Point:
+                return point;
 
-		case Polygon:
-			return polygon;
-			
-		case Curve:
-			return curve;
-			
-		case Surface:
-			return surface;
-		default:
-			break;
-		}
-		return null;
-	}
+            case LineString:
+                return lineString;
 
-	public void toConsole() {
-		try {
-			model.write(new OutputStreamWriter(System.out, "UTF8"),
-					"RDF/XML-ABBREV");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-	}
+            case Polygon:
+                return polygon;
+
+            case Curve:
+                return curve;
+
+            case Surface:
+                return surface;
+            default:
+                break;
+        }
+        return null;
+    }
+
+    public void toConsole() {
+        try {
+            model.write(new OutputStreamWriter(System.out, "UTF8"),
+                    "RDF/XML-ABBREV");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 }
