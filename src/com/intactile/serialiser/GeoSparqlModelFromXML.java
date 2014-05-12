@@ -11,7 +11,6 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
-import com.intactile.models.GeoType;
 
 public class GeoSparqlModelFromXML {
 	private static GeoSparqlModelFromXML singlenton;
