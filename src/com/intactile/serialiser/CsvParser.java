@@ -33,7 +33,7 @@ public class CsvParser {
 				strs = sCurrentLine.split(deliminator);
 				TimedPoint tpoint = new TimedPoint();
 				if (strs.length <= 4) {
-					timedFeature.getTFeatureId();
+					timedFeature.tFeatureId = Long.parseLong(strs[0]);
 					timedFeature.tFeatureName = strs[1];
 					timedFeature.tFeatureType = strs[2];
 					timedFeature.tFeatureDescription = strs[3];

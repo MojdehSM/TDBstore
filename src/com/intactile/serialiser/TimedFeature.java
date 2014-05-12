@@ -1,21 +1,16 @@
 package com.intactile.serialiser;
 
+import com.hp.hpl.jena.ontology.Individual;
 import java.util.ArrayList;
-import java.util.Random;
 
 
-public class TimedFeature {
-	public long tFeatureId;
-	public String tFeatureName;
-	public String tFeatureType;
-	public String tFeatureDescription;
+public class TimedFeature  extends MyFeature{
 	ArrayList<TimedPoint> tFeatureWay = new ArrayList<>();
-	
-	public void setTFeatureId(long id) {
-		tFeatureId= new Random().nextLong();
-	}
-
-	public long getTFeatureId() {
-		return tFeatureId;	
-	}	
+        
+        @Override
+        public void save(Individual ind){
+            for(TimedPoint p:  tFeatureWay){
+                p.save(ind);
+            }
+        }
 }

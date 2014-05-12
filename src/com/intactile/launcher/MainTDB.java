@@ -21,6 +21,8 @@ public class MainTDB {
 
 	public static void main(String args[]) throws Exception {
 
+            
+            TdbTest();
 		/*
 		 * CoordinateReferenceSystem sourceCRS = CRS.decode("EPSG:4326"); String
 		 * wkt = sourceCRS.toWKT(); System.out.println("wkt for EPSG:4326");

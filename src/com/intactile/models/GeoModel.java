@@ -67,7 +67,7 @@ public class GeoModel {
                     try {
                         type = GeoType.valueOf(c.getLocalName());
                     } catch (Exception e) {
-                        System.err.println("unkown :" + c.getLocalName());
+                        //System.err.println("unkown :" + c.getLocalName());
                         type = GeoType.Unknown;
                     }
 
@@ -117,12 +117,12 @@ public class GeoModel {
                         default:
                             break;
                     }
-                    System.err.println(c.getLocalName());
-                    Iterator<OntProperty> pso = c.listDeclaredProperties();
-                    while (pso.hasNext()) {
-                        OntProperty p = pso.next();
-                        System.out.println(p.getLocalName());
-                    }
+                    //System.err.println(c.getLocalName());
+                    //Iterator<OntProperty> pso = c.listDeclaredProperties();
+                    //while (pso.hasNext()) {
+                    //    OntProperty p = pso.next();
+                    //    System.out.println(p.getLocalName());
+                    //}
                 } while (cl.hasNext());
             }
         } catch (Exception e) {
