@@ -46,7 +46,7 @@ public class CsvParser {
 					tpoint.tPointDirection = strs[4];
 					tpoint.tPointSpeed = strs[5];
 					tpoint.tPointTime = strs[6];
-					timedFeature.tFeatureWay.wayTLine.setWayPoints(tpoint);
+					timedFeature.tFeatureWay.wayTLine.addWayPoint(tpoint);
 				}
 
 				for (int i = 0; i < strs.length; i++) {
@@ -55,6 +55,8 @@ public class CsvParser {
 				System.err.println();
 				// }
 			}
+                        if(!timedFeature.tFeatureWay.wayTLine.points.isEmpty())
+                            timedFeature.lastPosition = timedFeature.tFeatureWay.wayTLine.points.get(timedFeature.tFeatureWay.wayTLine.points.size()-1);
 			// System.out.println("---------------------------------------------");
 		} catch (IOException e) {
 			e.printStackTrace();

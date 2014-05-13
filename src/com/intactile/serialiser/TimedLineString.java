@@ -25,7 +25,7 @@ public class TimedLineString {
         return this.points;
     }
 
-    public void setWayPoints(TimedPoint point) {
+    public void addWayPoint(TimedPoint point) {
         this.points.add(point);
     }
 

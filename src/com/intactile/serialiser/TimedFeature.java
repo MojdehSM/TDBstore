@@ -14,7 +14,7 @@ import com.intactile.models.GeoType;
 public class TimedFeature extends MyFeature {
 
 	public TimedPoint lastPosition;
-	public TimedWay tFeatureWay;
+	public TimedWay tFeatureWay = new TimedWay();
 
 	public TimedPoint getLastPosition() {
 		return lastPosition;
