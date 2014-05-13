@@ -61,13 +61,17 @@ public class TimedPoint {
 		return tPointTime;
 	}
 
-	public Individual save(String pointId) {
+	public Individual save(Individual Id) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tPoint = geomodel.getOntClass(GeoType.TimedPoint);
 
-		Individual tPointI = tPoint.createIndividual(geomodel.getNs_Model()
-				+ pointId);
+                //long x = 21321321321313;
+                //String xid =  new String(x);
+                
+                Individual tPointI = tPoint.createIndividual(geomodel.getNs_Model()
+				+ tPointId);
 
+                
 		for (OntProperty pr : tPoint.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("TPointLat")) {
 				tPointI.addProperty(pr, getPointLat());
@@ -81,6 +85,8 @@ public class TimedPoint {
 				tPointI.addProperty(pr, getPointSpeed());
 			} else if (pr.getLocalName().equals("TPointDirection")) {
 				tPointI.addProperty(pr, getPointDirection());
+			}  else if (pr.getLocalName().equals("TInvers")) {
+				tPoint.addProperty(pr, Id);
 			}
 		}
 		return tPointI;

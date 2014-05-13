@@ -37,8 +37,9 @@ public class Way extends MyFeature {
 	}
 
 	@Override
-	public void save(Individual ind) {
+	public Individual save(Individual ind) {
 
+            return null;
 	}
 
 }

@@ -74,5 +74,5 @@ public abstract class MyFeature {
 		this.save(featureI);
 	}
 
-	public abstract void save(Individual ind);
+	public abstract Individual save(Individual ind);
 }

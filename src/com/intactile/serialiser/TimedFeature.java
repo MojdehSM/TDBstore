@@ -28,18 +28,17 @@ public class TimedFeature extends MyFeature {
 		this.tFeatureWay = way;
 	}
 
-	public Individual save(String id) {
+        @Override
+	public Individual save(Individual tFeatureI) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tFeature = geomodel.getOntClass(GeoType.TimedFeature);
 
-		Individual tFeatureI = tFeature.createIndividual(geomodel.getNs_Model()
-				+ featureId);
 		for (OntProperty pr : tFeature.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("hasWay")) {
-				Individual wayI = tFeatureWay.save(featureId);
+				Individual wayI = tFeatureWay.save(tFeatureI);
 				tFeatureI.addProperty(pr, wayI);
 			} else if (pr.getLocalName().equals("HasLastPosition")) {
-				Individual tPointI = lastPosition.save(featureId);
+				Individual tPointI = lastPosition.save(tFeatureI);
 				tFeatureI.addProperty(pr, tPointI);
 			}
 		}
@@ -47,9 +46,6 @@ public class TimedFeature extends MyFeature {
 		return tFeatureI;
 	}
 
-	@Override
-	public void save(Individual ind) {
-		// for (TimedPoint p : tFeatureWay) {
-		// p.save(ind);}
-	}
+	
+	
 }

@@ -10,44 +10,48 @@ import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Seq;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
-import com.vividsolutions.jts.geom.CoordinateSequence;
+import java.util.Random;
 
 public class TimedLineString {
 
-	List<TimedPoint> points = new ArrayList<TimedPoint>();
-	private OntModel model;
-	// CoordinateSequence seqList; ????????
-	Seq seqList = model.createSeq();
+    List<TimedPoint> points = new ArrayList<TimedPoint>();
+      
+    
 
-	public TimedLineString() {
-	}
+    public TimedLineString() {
+    }
 
-	public List<TimedPoint> getWayPoints() {
-		return this.points;
-	}
+    public List<TimedPoint> getWayPoints() {
+        return this.points;
+    }
 
-	public void setWayPoints(TimedPoint point) {
-		this.points.add(point);
-	}
+    public void setWayPoints(TimedPoint point) {
+        this.points.add(point);
+    }
 
-	public Individual save(String tpointId) {
-		GeoModel geomodel = GeoModel.getInstance();
-		OntClass tLineString = geomodel.getOntClass(GeoType.TimedLineString);
+    public Individual save(Individual tpointId) {
+        GeoModel geomodel = GeoModel.getInstance();
+        OntClass tLineString = geomodel.getOntClass(GeoType.TimedLineString);
 
-		Individual tLineStringI = tLineString.createIndividual(geomodel
-				.getNs_Model() + tpointId);
+        long l = new  Random().nextLong();
+        
+        Individual tLineStringI = tLineString.createIndividual(geomodel
+                .getNs_Model() + l);
+        
+        
+        
 
-		for (OntProperty pr : tLineString.listDeclaredProperties().toList()) {
-			if (pr.getLocalName().equals("hasTimedPoints")) {
-				for (TimedPoint point : points) {
-					Individual tPointI = point.save(tpointId);
-					String pId = point.getPointId();
-					 seqList.add(pr, tPointI);
-				}
-				tLineStringI.addProperty(pr, seqList);
-			}
-		}
-		return tLineStringI;
-	}
+        for (OntProperty pr : tLineString.listDeclaredProperties().toList()) {
+            if (pr.getLocalName().equals("hasTimedPoints")) {
+                Seq seqList = geomodel.getModel().createSeq();                
+                for (TimedPoint point : points) {
+                    Individual tPointI = point.save(tLineStringI);
+                    seqList.add(tPointI);
+                }
+                tLineStringI.addProperty(pr, seqList);
+            }
+        }
+        return tLineStringI;
+    }
 
 }
