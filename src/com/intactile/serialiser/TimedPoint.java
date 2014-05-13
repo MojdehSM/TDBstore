@@ -14,8 +14,10 @@ import com.intactile.models.GeoType;
  * 
  * @author Mojdeh
  */
-public class TimedPoint {
+public class TimedPoint implements Comparable<TimedPoint>{
 
+        
+    
 	public static GeoSparqlModelFromXML geosparql;
 
 	public String tPointId;
@@ -99,5 +101,13 @@ public class TimedPoint {
 				+ tPointAltitude + ", Direction:" + tPointDirection
 				+ ", Speed:" + tPointSpeed + ", Time:" + tPointTime;
 	}
+
+    @Override
+    public int compareTo(TimedPoint o) {
+        long me = Long.parseLong(tPointTime);
+        long he = Long.parseLong(o.tPointTime);
+        long ret = me-he;
+        return (int)ret;
+    }
 
 }

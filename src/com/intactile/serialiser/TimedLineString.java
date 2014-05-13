@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Seq;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
+import java.util.Collections;
 import java.util.Random;
 
 public class TimedLineString {
@@ -39,6 +39,7 @@ public class TimedLineString {
                 .getNs_Model() + l);
         
         
+        Collections.sort(points);
         
 
         for (OntProperty pr : tLineString.listDeclaredProperties().toList()) {
