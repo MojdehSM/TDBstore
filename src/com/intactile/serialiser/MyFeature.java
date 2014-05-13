@@ -12,31 +12,67 @@ import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
 
 /**
- *
+ * 
  * @author Mojdeh
  */
 public abstract class MyFeature {
 
-    public long tFeatureId;
-    public String tFeatureName;
-    public String tFeatureType;
-    public String tFeatureDescription;
+	public String featureId;
+	public String featureName;
+	public String featureType;
+	public String featureDesc;
 
-    public void save() {
-        GeoModel geomodel = GeoModel.getInstance();
-        OntClass timeF = geomodel.getOntClass(GeoType.TimedFeature);
+	public String getFeatureId() {
+		return featureId;
+	}
 
-        Individual ind = timeF.createIndividual(tFeatureId+"");
-        for (OntProperty pr : timeF.listDeclaredProperties().toList()) {
-            if (pr.getLocalName().equals("")) {
-                ind.addProperty(pr, tFeatureName);
-            }
-        }
-        
-        this.save(ind);
-    }
+	public String getFeatureName() {
+		return featureName;
+	}
 
-    public abstract void save(Individual ind);
-    
-    
+	public String getFeatureType() {
+		return featureType;
+	}
+
+	public String getFeatureDesc() {
+		return featureDesc;
+	}
+
+	public void setFeatureId(String id) {
+		this.featureId = id;
+	}
+
+	public void setFeatureName(String name) {
+		this.featureName = name;
+	}
+
+	public void setFeatureType(String type) {
+		this.featureId = type;
+	}
+
+	public void setFeatureDesc(String desc) {
+		this.featureDesc = desc;
+	}
+
+	public void save() {
+		
+		GeoModel geomodel = GeoModel.getInstance();
+		OntClass myFeature = geomodel.getOntClass(GeoType.MyFeature);
+
+		Individual featureI = myFeature.createIndividual(geomodel.getNs_Model()
+				+ featureId);
+
+		for (OntProperty pr : myFeature.listDeclaredProperties().toList()) {
+			if (pr.getLocalName().equals("featureName")) {
+				featureI.addProperty(pr, getFeatureName());
+			} else if (pr.getLocalName().equals("featureType")) {
+				featureI.addProperty(pr, getFeatureType());
+			} else if (pr.getLocalName().equals("featureDescription")) {
+				featureI.addProperty(pr, getFeatureDesc());
+			}
+		}
+		this.save(featureI);
+	}
+
+	public abstract void save(Individual ind);
 }

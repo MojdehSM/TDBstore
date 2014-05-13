@@ -14,8 +14,8 @@ public class GeoModel {
     static GeoModel singleton = null;
     private OntModel model;
     // name space
-    private String ns = "http://geometryObject/GeoTemporelSchema#";
-    private String nsGeosparl = "https://www.opengis.net/ont/geosparql#";
+    private String ns_model = "http://geometryObject/GeoTemporelSchema#";
+    private String ns_Geosparl = "https://www.opengis.net/ont/geosparql#";
     // myclasses
     private OntClass myFeature;
     private OntClass timedPoint;
@@ -177,6 +177,14 @@ public class GeoModel {
         return null;
     }
 
+    public String getNs_Model() {
+		return ns_model;
+	}
+    
+    public String getNs_GeoSparql() {
+		return ns_Geosparl;
+	}
+    
     public void toConsole() {
         try {
             model.write(new OutputStreamWriter(System.out, "UTF8"),

@@ -1,119 +1,97 @@
 package com.intactile.serialiser;
 
+import org.geotools.referencing.CRS;
+import org.opengis.referencing.crs.CRSAuthorityFactory;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
+
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
-import java.io.IOException;
-import java.io.StringWriter;
-
-import org.geotools.geometry.jts.JTSFactoryFinder;
-
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.io.ParseException;
-import com.vividsolutions.jts.io.WKTReader;
-import com.vividsolutions.jts.io.WKTWriter;
 
 /**
- *
+ * 
  * @author Mojdeh
  */
 public class TimedPoint {
 
-    public static GeoSparqlModelFromXML geosparql;
+	public static GeoSparqlModelFromXML geosparql;
 
-    public String tPointId;
-    public String tPointLatitude;
-    public String tPointLongitude;
-    public String tPointAltitude;
-    public String tPointDirection;
-    public String tPointSpeed;
-    public String tPointTime;
+	public String tPointId;
+	public String tPointLatitude;
+	public String tPointLongitude;
+	public String tPointAltitude;
+	public String tPointDirection;
+	public String tPointSpeed;
+	public String tPointTime;
 
-    public TimedPoint() {
-    }
+	// CRSAuthorityFactory factory = CRS.getAuthorityFactory(true);
+	// CoordinateReferenceSystem crs =
+	// factory.createCoordinateReferenceSystem("EPSG:4326");
 
-    /**
-     * Creates a Point using the given Coordinate
-     *
-     * @param coord
-     * @param gf
-     * @param SRID
-     */
-    public void createPoint(Coordinate coord, GeometryFactory gf, int SRID) {
+	public TimedPoint() {
+	}
 
-        Point point = gf.createPoint(coord);
+	public String getPointId() {
+		return tPointId;
+	}
 
-        System.out.println(point);
-    }
+	public String getPointLat() {
+		return tPointLatitude;
+	}
 
-    /**
-     * Converts a Geometry to its Well-known Text representation.
-     *
-     * @param gf
-     * @param coord
-     */
-    public void writeWKT(GeometryFactory gf, Coordinate coord) {
+	public String getPointLong() {
+		return tPointLongitude;
+	}
 
-        Point point = gf.createPoint(coord);
+	public String getPointAlt() {
+		return tPointAltitude;
+	}
 
-        StringWriter writer = new StringWriter();
-        WKTWriter wktWriter = new WKTWriter();
+	public String getPointDirection() {
+		return tPointDirection;
+	}
 
-        try {
-            wktWriter.write(point, writer);
-        } catch (IOException e) {
-        }
+	public String getPointSpeed() {
+		return tPointSpeed;
+	}
 
-        String wkt = writer.toString();
-        System.out.println(wkt);
-    }
+	public String getPointSaveTime() {
+		return tPointTime;
+	}
 
-    /**
-     * Creates a reader that creates objects using the given
-     * {@link GeometryFactory}. Reads a Well-Known Text representation of a
-     * {@link Geometry} from a {@link String}.
-     *
-     * @param gf
-     */
-    public void readWKT(GeometryFactory gf) {
-        GeometryFactory geometryFactory = JTSFactoryFinder
-                .getGeometryFactory(null);
+	public Individual save(String pointId) {
+		GeoModel geomodel = GeoModel.getInstance();
+		OntClass tPoint = geomodel.getOntClass(GeoType.TimedPoint);
 
-        WKTReader reader = new WKTReader(geometryFactory);
-        Point point = null;
-        try {
-            point = (Point) reader.read("POINT (42.349167 3.684722)");
-        } catch (ParseException e) {
-        }
-        System.out.println(point);
-    }
+		Individual tPointI = tPoint.createIndividual(geomodel.getNs_Model()
+				+ pointId);
 
-    @Override
-    public String toString() {
-        return "ID:" + tPointId + ", Latitude:" + tPointLatitude
-                + ", Longitude:" + tPointLongitude + ", Altitude:"
-                + tPointAltitude + ", Direction:" + tPointDirection
-                + ", Speed:" + tPointSpeed + ", Time:" + tPointTime;
-    }
+		for (OntProperty pr : tPoint.listDeclaredProperties().toList()) {
+			if (pr.getLocalName().equals("TPointLat")) {
+				tPointI.addProperty(pr, getPointLat());
+			} else if (pr.getLocalName().equals("TPointAlt")) {
+				tPointI.addProperty(pr, getPointAlt());
+			} else if (pr.getLocalName().equals("TPointLong")) {
+				tPointI.addProperty(pr, getPointLong());
+			} else if (pr.getLocalName().equals("TPointSaveTime")) {
+				tPointI.addProperty(pr, getPointSaveTime());
+			} else if (pr.getLocalName().equals("TPointSpeed")) {
+				tPointI.addProperty(pr, getPointSpeed());
+			} else if (pr.getLocalName().equals("TPointDirection")) {
+				tPointI.addProperty(pr, getPointDirection());
+			}
+		}
+		return tPointI;
+	}
 
-    void save(Individual ind) {
-        GeoModel model = GeoModel.getInstance();
-        OntClass cl = model.getOntClass(GeoType.TimedPoint);
-
-        cl.createIndividual(tPointId);
-        
-        for(OntProperty pr : cl.listDeclaredProperties().toList()){
-            if(pr.getLocalName().equals("")){
-                
-            }
-        }
-
-    }
+	@Override
+	public String toString() {
+		return "ID:" + tPointId + ", Latitude:" + tPointLatitude
+				+ ", Longitude:" + tPointLongitude + ", Altitude:"
+				+ tPointAltitude + ", Direction:" + tPointDirection
+				+ ", Speed:" + tPointSpeed + ", Time:" + tPointTime;
+	}
 
 }

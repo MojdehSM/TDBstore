@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class CsvParser {
 	String path;
 	String deliminator = "\t";
@@ -33,10 +32,10 @@ public class CsvParser {
 				strs = sCurrentLine.split(deliminator);
 				TimedPoint tpoint = new TimedPoint();
 				if (strs.length <= 4) {
-					timedFeature.tFeatureId = Long.parseLong(strs[0]);
-					timedFeature.tFeatureName = strs[1];
-					timedFeature.tFeatureType = strs[2];
-					timedFeature.tFeatureDescription = strs[3];
+					timedFeature.featureId = strs[0];
+					timedFeature.featureName = strs[1];
+					timedFeature.featureType = strs[2];
+					timedFeature.featureDesc = strs[3];
 					timedFeaturelst.add(timedFeature);
 
 				} else if (strs.length > 4) {
@@ -47,9 +46,9 @@ public class CsvParser {
 					tpoint.tPointDirection = strs[4];
 					tpoint.tPointSpeed = strs[5];
 					tpoint.tPointTime = strs[6];
-					timedFeature.tFeatureWay.add(tpoint);
+					timedFeature.tFeatureWay.wayTLine.setWayPoints(tpoint);
 				}
-	
+
 				for (int i = 0; i < strs.length; i++) {
 					System.err.print(strs[i] + " - ");
 				}
