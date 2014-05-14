@@ -7,7 +7,7 @@ public enum GeoType {
     TimedFeature,
     TimedWay,
     TimedLineString,
-    Stop,
+    Port,
     Way,
     Ship,
     Airplaine,

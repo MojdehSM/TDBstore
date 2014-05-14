@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY sf "http://www.opengis.net/ont/sf#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY geosparql "http://www.opengis.net/ont/geosparql#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY STOntologie "http://www.IntactileDesign/ontologies/2014/STOntologie.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.IntactileDesign/ontologies/2014/STOntologie.owl#"
+     xml:base="http://www.IntactileDesign/ontologies/2014/STOntologie.owl"
+     xmlns:geosparql="http://www.opengis.net/ont/geosparql#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:STOntologie="http://www.IntactileDesign/ontologies/2014/STOntologie.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:sf="http://www.opengis.net/ont/sf#">
+    <owl:Ontology rdf:about="">
+        <owl:imports rdf:resource="http://www.opengis.net/ont/geosparql"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasFeature -->
+
+    <owl:ObjectProperty rdf:about="#hasFeature">
+        <rdfs:range rdf:resource="#TimedFeature"/>
+        <rdfs:domain rdf:resource="#TimedWay"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasGeometryLine -->
+
+    <owl:ObjectProperty rdf:about="#hasGeometryLine">
+        <rdfs:domain rdf:resource="#Way"/>
+        <rdfs:subPropertyOf rdf:resource="&geosparql;hasGeometry"/>
+        <rdfs:range rdf:resource="&sf;LineString"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasGeometryPoly -->
+
+    <owl:ObjectProperty rdf:about="#hasGeometryPoly">
+        <rdfs:domain rdf:resource="#Port"/>
+        <rdfs:subPropertyOf rdf:resource="&geosparql;hasGeometry"/>
+        <rdfs:range rdf:resource="&sf;Polygon"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasGeometryTimedLine -->
+
+    <owl:ObjectProperty rdf:about="#hasGeometryTimedLine">
+        <rdfs:range rdf:resource="#TimedLineString"/>
+        <rdfs:domain rdf:resource="#TimedWay"/>
+        <rdfs:subPropertyOf rdf:resource="#hasGeometryLine"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasLastPosition -->
+
+    <owl:ObjectProperty rdf:about="#hasLastPosition">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#TimedFeature"/>
+        <rdfs:range rdf:resource="#TimedPoint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasLineString -->
+
+    <owl:ObjectProperty rdf:about="#hasLineString">
+        <rdfs:range rdf:resource="#TimedLineString"/>
+        <rdfs:domain rdf:resource="#TimedPoint"/>
+        <owl:inverseOf rdf:resource="#hasTimedPoints"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasTimedPoints -->
+
+    <owl:ObjectProperty rdf:about="#hasTimedPoints">
+        <rdfs:domain rdf:resource="#TimedLineString"/>
+        <rdfs:range rdf:resource="#TimedPoint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasWay -->
+
+    <owl:ObjectProperty rdf:about="#hasWay">
+        <rdfs:domain rdf:resource="#TimedFeature"/>
+        <rdfs:range rdf:resource="#TimedWay"/>
+        <owl:inverseOf rdf:resource="#hasFeature"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.opengis.net/ont/geosparql#hasGeometry -->
+
+    <owl:ObjectProperty rdf:about="&geosparql;hasGeometry"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+    <owl:DatatypeProperty rdf:about="&terms;description"/>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#FeatureDesc -->
+
+    <owl:DatatypeProperty rdf:about="#FeatureDesc">
+        <rdfs:subPropertyOf rdf:resource="&terms;description"/>
+        <rdfs:domain rdf:resource="#MyFeature"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#FeatureId -->
+
+    <owl:DatatypeProperty rdf:about="#FeatureId">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#MyFeature"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#FeatureName -->
+
+    <owl:DatatypeProperty rdf:about="#FeatureName">
+        <rdfs:domain rdf:resource="#MyFeature"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#FeatureType -->
+
+    <owl:DatatypeProperty rdf:about="#FeatureType">
+        <rdfs:domain rdf:resource="#MyFeature"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TPointAlt -->
+
+    <owl:DatatypeProperty rdf:about="#TPointAlt">
+        <rdfs:domain rdf:resource="#TimedPoint"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TPointDirection -->
+
+    <owl:DatatypeProperty rdf:about="#TPointDirection">
+        <rdfs:domain rdf:resource="#TimedPoint"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TPointId -->
+
+    <owl:DatatypeProperty rdf:about="#TPointId">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#TimedPoint"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TPointLat -->
+
+    <owl:DatatypeProperty rdf:about="#TPointLat">
+        <rdfs:domain rdf:resource="#TimedPoint"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TPointLong -->
+
+    <owl:DatatypeProperty rdf:about="#TPointLong">
+        <rdfs:domain rdf:resource="#TimedPoint"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TPointSaveTime -->
+
+    <owl:DatatypeProperty rdf:about="#TPointSaveTime">
+        <rdfs:domain rdf:resource="#TimedPoint"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TPointSpeed -->
+
+    <owl:DatatypeProperty rdf:about="#TPointSpeed">
+        <rdfs:domain rdf:resource="#TimedPoint"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#Aireplaine -->
+
+    <owl:Class rdf:about="#Aireplaine">
+        <rdfs:subClassOf rdf:resource="#TimedFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#MyFeature -->
+
+    <owl:Class rdf:about="#MyFeature">
+        <rdfs:subClassOf rdf:resource="&geosparql;Feature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#Port -->
+
+    <owl:Class rdf:about="#Port">
+        <rdfs:subClassOf rdf:resource="#MyFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#Ship -->
+
+    <owl:Class rdf:about="#Ship">
+        <rdfs:subClassOf rdf:resource="#TimedFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TimedFeature -->
+
+    <owl:Class rdf:about="#TimedFeature">
+        <rdfs:subClassOf rdf:resource="#MyFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TimedLineString -->
+
+    <owl:Class rdf:about="#TimedLineString">
+        <rdfs:subClassOf rdf:resource="&sf;LineString"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TimedPoint -->
+
+    <owl:Class rdf:about="#TimedPoint">
+        <rdfs:subClassOf rdf:resource="&sf;Point"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#TimedWay -->
+
+    <owl:Class rdf:about="#TimedWay">
+        <rdfs:subClassOf rdf:resource="#Way"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#Way -->
+
+    <owl:Class rdf:about="#Way">
+        <rdfs:subClassOf rdf:resource="#MyFeature"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/ont/geosparql#Feature -->
+
+    <owl:Class rdf:about="&geosparql;Feature"/>
+    
+
+
+    <!-- http://www.opengis.net/ont/sf#LineString -->
+
+    <owl:Class rdf:about="&sf;LineString"/>
+    
+
+
+    <!-- http://www.opengis.net/ont/sf#Point -->
+
+    <owl:Class rdf:about="&sf;Point"/>
+    
+
+
+    <!-- http://www.opengis.net/ont/sf#Polygon -->
+
+    <owl:Class rdf:about="&sf;Polygon"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.1138) http://owlapi.sourceforge.net -->
+

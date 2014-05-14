@@ -5,6 +5,8 @@
  */
 package com.intactile.serialiser;
 
+import java.util.Random;
+
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntProperty;
@@ -17,13 +19,19 @@ import com.intactile.models.GeoType;
  */
 public abstract class MyFeature {
 
-	public String featureId;
+	public long featureId;
+	public String featureIdS;
 	public String featureName;
 	public String featureType;
 	public String featureDesc;
 
+	public MyFeature() {
+		featureId = new Random().nextLong();
+		featureIdS = featureId + "";
+	}
+
 	public String getFeatureId() {
-		return featureId;
+		return featureIdS;
 	}
 
 	public String getFeatureName() {
@@ -39,7 +47,7 @@ public abstract class MyFeature {
 	}
 
 	public void setFeatureId(String id) {
-		this.featureId = id;
+		this.featureIdS = id;
 	}
 
 	public void setFeatureName(String name) {
@@ -47,7 +55,7 @@ public abstract class MyFeature {
 	}
 
 	public void setFeatureType(String type) {
-		this.featureId = type;
+		this.featureIdS = type;
 	}
 
 	public void setFeatureDesc(String desc) {
@@ -55,12 +63,12 @@ public abstract class MyFeature {
 	}
 
 	public void save() {
-		
+
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass myFeature = geomodel.getOntClass(GeoType.MyFeature);
 
 		Individual featureI = myFeature.createIndividual(geomodel.getNs_Model()
-				+ featureId);
+				+ featureIdS);
 
 		for (OntProperty pr : myFeature.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("featureName")) {

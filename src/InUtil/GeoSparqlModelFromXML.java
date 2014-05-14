@@ -1,4 +1,4 @@
-package com.intactile.serialiser;
+package InUtil;
 
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;

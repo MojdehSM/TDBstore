@@ -32,14 +32,14 @@ public class CsvParser {
 				strs = sCurrentLine.split(deliminator);
 				TimedPoint tpoint = new TimedPoint();
 				if (strs.length <= 4) {
-					timedFeature.featureId = strs[0];
+					timedFeature.featureIdS = strs[0];
 					timedFeature.featureName = strs[1];
 					timedFeature.featureType = strs[2];
 					timedFeature.featureDesc = strs[3];
 					timedFeaturelst.add(timedFeature);
 
 				} else if (strs.length > 4) {
-					tpoint.tPointId = strs[0];
+					tpoint.tPointIdS = strs[0];
 					tpoint.tPointLatitude = strs[1];
 					tpoint.tPointLongitude = strs[2];
 					tpoint.tPointAltitude = strs[3];
@@ -49,15 +49,22 @@ public class CsvParser {
 					timedFeature.tFeatureWay.wayTLine.addWayPoint(tpoint);
 				}
 
-				for (int i = 0; i < strs.length; i++) {
-					System.err.print(strs[i] + " - ");
-				}
-				System.err.println();
+				/*
+				 * for (int i = 0; i < strs.length; i++) {
+				 * System.err.print(strs[i] + " - "); } System.err.println();
+				 */
 				// }
 			}
-                        if(!timedFeature.tFeatureWay.wayTLine.points.isEmpty())
-                            timedFeature.lastPosition = timedFeature.tFeatureWay.wayTLine.points.get(timedFeature.tFeatureWay.wayTLine.points.size()-1);
-			// System.out.println("---------------------------------------------");
+			if (!timedFeature.tFeatureWay.wayTLine.points.isEmpty())
+				timedFeature.lastPosition = timedFeature.tFeatureWay.wayTLine.points
+						.get(timedFeature.tFeatureWay.wayTLine.points.size() - 1);
+			//System.out.println("LastPosition: " + timedFeature.lastPosition);
+
+			System.out.println("Points:");
+			for (TimedPoint point : timedFeature.tFeatureWay.wayTLine.points) {
+				System.out.println("Point dedans: " + point);
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

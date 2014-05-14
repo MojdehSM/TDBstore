@@ -6,7 +6,6 @@ import com.hp.hpl.jena.ontology.OntProperty;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
 
-
 /**
  * 
  * @author Mojdeh
@@ -28,7 +27,7 @@ public class TimedFeature extends MyFeature {
 		this.tFeatureWay = way;
 	}
 
-        @Override
+	@Override
 	public Individual save(Individual tFeatureI) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tFeature = geomodel.getOntClass(GeoType.TimedFeature);
@@ -37,7 +36,7 @@ public class TimedFeature extends MyFeature {
 			if (pr.getLocalName().equals("hasWay")) {
 				Individual wayI = tFeatureWay.save(tFeatureI);
 				tFeatureI.addProperty(pr, wayI);
-			} else if (pr.getLocalName().equals("HasLastPosition")) {
+			} else if (pr.getLocalName().equals("hasLastPosition")) {
 				Individual tPointI = lastPosition.save(tFeatureI);
 				tFeatureI.addProperty(pr, tPointI);
 			}
@@ -46,6 +45,4 @@ public class TimedFeature extends MyFeature {
 		return tFeatureI;
 	}
 
-	
-	
 }

@@ -14,14 +14,14 @@ public class GeoModel {
     static GeoModel singleton = null;
     private OntModel model;
     // name space
-    private String ns_model = "http://geometryObject/GeoTemporelSchema#";
+    private String ns_model = "http://www.intactile.com/2014/STOntology.owl##";
     private String ns_Geosparl = "https://www.opengis.net/ont/geosparql#";
     // myclasses
     private OntClass myFeature;
     private OntClass timedPoint;
     private OntClass timedFeature;
     private OntClass timedWay;
-    private OntClass stop;
+    private OntClass port;
     private OntClass way;
     // geosparql class
     private OntClass feature;
@@ -84,8 +84,8 @@ public class GeoModel {
                         case TimedWay:
                             timedWay = c;
                             break;
-                        case Stop:
-                            stop = c;
+                        case Port:
+                            port = c;
                             break;
                         case Way:
                             way = c;
@@ -144,8 +144,8 @@ public class GeoModel {
             case TimedWay:
                 return timedWay;
 
-            case Stop:
-                return stop;
+            case Port:
+                return port;
 
             case Way:
                 return way;

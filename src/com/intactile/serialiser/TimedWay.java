@@ -6,18 +6,22 @@ import com.hp.hpl.jena.ontology.OntProperty;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
 
+/**
+ * 
+ * @author Mojdeh
+ */
 public class TimedWay extends Way {
 
-	public TimedLineString wayTLine;
+	public TimedLineString wayTLine= new TimedLineString();
 	public TimedFeature timefeature;
 
-        @Override
+	@Override
 	public Individual save(Individual id) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tWay = geomodel.getOntClass(GeoType.TimedWay);
 
-                
-		Individual tWayI = tWay.createIndividual(geomodel.getNs_Model() + featureId);
+		Individual tWayI = tWay.createIndividual(geomodel.getNs_Model()
+				+ featureIdS);
 
 		for (OntProperty pr : tWay.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("hasGeometryTimedLine")) {

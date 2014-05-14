@@ -6,7 +6,6 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
-import com.intactile.serialiser.GeoSparqlModelFromXML;
 
 import java.io.IOException;
 import java.io.StringWriter;

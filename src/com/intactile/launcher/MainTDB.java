@@ -1,17 +1,20 @@
 package com.intactile.launcher;
 
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 
 import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.intactile.jenautils.CreateOntology;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
+import com.intactile.persistance.IPersistance;
+import com.intactile.persistance.PersistanceFactory;
+import com.intactile.persistance.TDBUtils;
 import com.intactile.serialiser.CsvParser;
-
-
-
 
 /**
  * 
@@ -20,20 +23,20 @@ import com.intactile.serialiser.CsvParser;
 public class MainTDB {
 
 	public static void main(String args[]) throws Exception {
-
+		IPersistance persistance = PersistanceFactory
+				.getCurrentPersistance(PersistanceFactory.PersistanceType.TDB);
+		//OntModel model = persistance.getModel();
 		// CreateOntologyFromOntologyFile();
-		// TDBUtils.queryData();
-		// GeoSparqlModelFromXML.GetInstance();
+		 TDBUtils.queryData();	
 		// TdbTest();
 		// CreateJenaModel();
 		// List<String> list = Arrays.asList("Travail_maison.csv", "Burger.csv",
 		// "Christophe.csv", "Carré du Roi.csv", "Olivier.csv");
-		 parseTest();
+		// parseTest();
 	}
 
 	public static void CreateOntologyFromOntologyFile() {
-		CreateOntology
-				.CreateOntologyFromFile("ressources/SpatialTemporelOntology.owl");
+		CreateOntology.CreateOntologyFromFile("ressources/STOntologie.owl");
 	}
 
 	public static void TdbTest() {

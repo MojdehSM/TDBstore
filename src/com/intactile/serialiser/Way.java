@@ -1,36 +1,35 @@
 package com.intactile.serialiser;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
-import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.Point;
 
 public class Way extends MyFeature {
 
 	public LineString wayLine;
-
-	public LineString getWayLine() {
-		return wayLine;
-	}
+	public long lingId;
 
 	public void save() {
 
 		GeoModel geomodel = GeoModel.getInstance();
-		OntClass myWay = geomodel.getOntClass(GeoType.Way);
+		OntClass way = geomodel.getOntClass(GeoType.Way);
+		OntClass lingString = geomodel.getOntClass(GeoType.LineString);
 
-		Individual wayI = myWay.createIndividual(geomodel.getNs_Model()
-				+ featureId);
+		lingId = new Random().nextLong();
 
-		for (OntProperty pr : myWay.listDeclaredProperties().toList()) {
+		Individual wayI = way.createIndividual(geomodel.getNs_Model()
+				+ featureIdS);
+
+		for (OntProperty pr : way.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("hasGeometryLine")) {
-				// Individual lineString = wayI.addProperty(pr,getWayLine());
+				Individual lineStringI = lingString.createIndividual(geomodel
+						.getNs_GeoSparql() + lingId);
+				wayI.addProperty(pr, lineStringI);
 			}
 		}
 		this.save(wayI);
@@ -38,8 +37,7 @@ public class Way extends MyFeature {
 
 	@Override
 	public Individual save(Individual ind) {
-
-            return null;
+		return null;
 	}
 
 }
