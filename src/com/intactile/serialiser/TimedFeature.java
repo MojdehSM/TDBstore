@@ -28,21 +28,28 @@ public class TimedFeature extends MyFeature {
 	}
 
 	@Override
-	public Individual save(Individual tFeatureI) {
+	protected Individual saveSpecialized(Individual tFeatureI) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tFeature = geomodel.getOntClass(GeoType.TimedFeature);
 
 		for (OntProperty pr : tFeature.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("hasWay")) {
-				Individual wayI = tFeatureWay.save(tFeatureI);
+				Individual wayI = tFeatureWay.saveSpecialized(tFeatureI);
 				tFeatureI.addProperty(pr, wayI);
 			} else if (pr.getLocalName().equals("hasLastPosition")) {
 				Individual tPointI = lastPosition.save(tFeatureI);
 				tFeatureI.addProperty(pr, tPointI);
 			}
 		}
-		this.save(tFeatureI);
 		return tFeatureI;
 	}
+
+    @Override
+    public String toString() {
+        return super.toString() + " \n" + tFeatureWay.toString();
+    }
+        
+        
+        
 
 }

@@ -16,22 +16,27 @@ public class TimedWay extends Way {
 	public TimedFeature timefeature;
 
 	@Override
-	public Individual save(Individual id) {
+	protected Individual saveSpecialized(Individual tWayI) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tWay = geomodel.getOntClass(GeoType.TimedWay);
-
-		Individual tWayI = tWay.createIndividual(geomodel.getNs_Model()
-				+ featureIdS);
-
+		
 		for (OntProperty pr : tWay.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("hasGeometryTimedLine")) {
 				Individual tLineStringI = wayTLine.save(tWayI);
 				tWayI.addProperty(pr, tLineStringI);
 			} else if (pr.getLocalName().equals("hasFeature")) {
-				Individual tFeatureI = timefeature.save(id);
+				Individual tFeatureI = timefeature.saveSpecialized(tWayI);
 				tWayI.addProperty(pr, tFeatureI);
 			}
 		}
 		return tWayI;
 	}
+
+    @Override
+    public String toString() {
+        return "TimedWay  : \n" +wayTLine.toString(); 
+    }
+        
+        
+        
 }

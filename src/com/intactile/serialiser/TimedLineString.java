@@ -24,6 +24,7 @@ public class TimedLineString{
 	public long tLineId;
 	
 	public TimedLineString() {
+            tLineId= new Random().nextLong();
 	}
 
 	public List<TimedPoint> getWayPoints() {
@@ -34,11 +35,22 @@ public class TimedLineString{
 		points.add(point);
 	}
 
+    @Override
+    public String toString() {
+        String line = " LineStringTimed :\n";
+        for(TimedPoint p : points){
+            line += "\t " + p.toString() + " \n";
+        }
+        return line; //To change body of generated methods, choose Tools | Templates.
+    }
+        
+        
+
 	public Individual save(Individual tpointId) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tLineString = geomodel.getOntClass(GeoType.TimedLineString);
 
-		tLineId= new Random().nextLong();
+		
 
 		Individual tLineStringI = tLineString.createIndividual(geomodel
 				.getNs_Model() + tLineId);

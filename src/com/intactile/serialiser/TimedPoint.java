@@ -9,7 +9,7 @@ import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
-import com.vividsolutions.jts.geom.LineString;
+
 
 /**
  * 
@@ -20,7 +20,6 @@ public class TimedPoint implements Comparable<TimedPoint> {
 	public static GeoSparqlModelFromXML geosparql;
 
 	public long tPointId;
-	public String tPointIdS;
 	public String tPointLatitude;
 	public String tPointLongitude;
 	public String tPointAltitude;
@@ -34,11 +33,10 @@ public class TimedPoint implements Comparable<TimedPoint> {
 
 	public TimedPoint() {
 		tPointId=new Random().nextLong();
-		tPointIdS= tPointId+ "";
 	}
 
-	public String getPointId() {
-		return tPointIdS;
+	public long getPointId() {
+		return tPointId;
 	}
 
 	public String getPointLat() {
@@ -71,7 +69,7 @@ public class TimedPoint implements Comparable<TimedPoint> {
 		OntClass tPointlineString = geomodel.getOntClass(GeoType.LineString);
 
 		Individual tPointI = tPoint.createIndividual(geomodel.getNs_Model()
-				+ tPointIdS);
+				+ tPointId);
 
 		for (OntProperty pr : tPoint.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("TPointLat")) {
@@ -97,7 +95,7 @@ public class TimedPoint implements Comparable<TimedPoint> {
 
 	@Override
 	public String toString() {
-		return "ID:" + tPointIdS + ", Latitude:" + tPointLatitude
+		return "Point :  ID:" + tPointId + ", Latitude:" + tPointLatitude
 				+ ", Longitude:" + tPointLongitude + ", Altitude:"
 				+ tPointAltitude + ", Direction:" + tPointDirection
 				+ ", Speed:" + tPointSpeed + ", Time:" + tPointTime;

@@ -11,33 +11,26 @@ import com.vividsolutions.jts.geom.LineString;
 
 public class Way extends MyFeature {
 
-	public LineString wayLine;
-	public long lingId;
+    public LineString wayLine;
 
-	public void save() {
+    
+    @Override
+    protected Individual saveSpecialized(Individual wayI) {
+        
+        GeoModel geomodel = GeoModel.getInstance();
+        OntClass way = geomodel.getOntClass(GeoType.Way);
+        OntClass lingString = geomodel.getOntClass(GeoType.LineString);
 
-		GeoModel geomodel = GeoModel.getInstance();
-		OntClass way = geomodel.getOntClass(GeoType.Way);
-		OntClass lingString = geomodel.getOntClass(GeoType.LineString);
+        for (OntProperty pr : way.listDeclaredProperties().toList()) {
 
-		lingId = new Random().nextLong();
-
-		Individual wayI = way.createIndividual(geomodel.getNs_Model()
-				+ featureIdS);
-
-		for (OntProperty pr : way.listDeclaredProperties().toList()) {
-			if (pr.getLocalName().equals("hasGeometryLine")) {
-				Individual lineStringI = lingString.createIndividual(geomodel
-						.getNs_GeoSparql() + lingId);
-				wayI.addProperty(pr, lineStringI);
-			}
-		}
-		this.save(wayI);
-	}
-
-	@Override
-	public Individual save(Individual ind) {
-		return null;
-	}
+            if (pr.getLocalName().equals("hasGeometryLine")) {
+                long lineId = new Random().nextLong();
+                Individual lineStringI = lingString.createIndividual(geomodel
+                        .getNs_GeoSparql() + lineId);
+                wayI.addProperty(pr, lineStringI);
+            }
+        }
+        return wayI;
+    }
 
 }

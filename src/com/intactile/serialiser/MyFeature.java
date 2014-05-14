@@ -20,18 +20,18 @@ import com.intactile.models.GeoType;
 public abstract class MyFeature {
 
 	public long featureId;
-	public String featureIdS;
+	
 	public String featureName;
 	public String featureType;
 	public String featureDesc;
 
 	public MyFeature() {
 		featureId = new Random().nextLong();
-		featureIdS = featureId + "";
+		
 	}
 
-	public String getFeatureId() {
-		return featureIdS;
+	public long getFeatureId() {
+		return featureId;
 	}
 
 	public String getFeatureName() {
@@ -46,18 +46,19 @@ public abstract class MyFeature {
 		return featureDesc;
 	}
 
-	public void setFeatureId(String id) {
-		this.featureIdS = id;
+	public void setFeatureId(long id) {
+		this.featureId = id;
 	}
 
 	public void setFeatureName(String name) {
 		this.featureName = name;
 	}
 
-	public void setFeatureType(String type) {
-		this.featureIdS = type;
-	}
+    public void setFeatureType(String featureType) {
+        this.featureType = featureType;
+    }
 
+	
 	public void setFeatureDesc(String desc) {
 		this.featureDesc = desc;
 	}
@@ -68,7 +69,7 @@ public abstract class MyFeature {
 		OntClass myFeature = geomodel.getOntClass(GeoType.MyFeature);
 
 		Individual featureI = myFeature.createIndividual(geomodel.getNs_Model()
-				+ featureIdS);
+				+ featureId);
 
 		for (OntProperty pr : myFeature.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("featureName")) {
@@ -79,8 +80,16 @@ public abstract class MyFeature {
 				featureI.addProperty(pr, getFeatureDesc());
 			}
 		}
-		this.save(featureI);
+		this.saveSpecialized(featureI);
 	}
 
-	public abstract Individual save(Individual ind);
+	protected abstract Individual saveSpecialized(Individual ind);
+        
+        
+        @Override
+	public String toString() {
+		return "ID:" + featureId + ", FeatureName:" + featureName
+				+ ", FeatureDesc:" + featureDesc + ", FeatureType:"
+				+ featureType ;
+	}
 }
