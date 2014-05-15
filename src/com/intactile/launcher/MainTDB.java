@@ -28,7 +28,7 @@ public class MainTDB {
 	public static void main(String args[]) throws Exception {
 
 		//CreateOntologyFromOntologyFile();
-		TDBUtils.queryData();
+		//TDBUtils.queryData();
 		// TdbTest();
 		// CreateJenaModel();
 		List<String> list = Arrays.asList("Travail_maison.csv", "Burger.csv",
@@ -37,7 +37,7 @@ public class MainTDB {
 				"Olivier1.csv", "Olivier2.csv", "Olivier3.csv",
 				"Stade Philippides.csv", "TramOccitanie-Maison.csv",
 				"Travail_Philippides .csv", "Travail-FJT.csv");
-		//parseTest(list);
+		parseTest(list);
 	}
 
 	public static void CreateOntologyFromOntologyFile() {

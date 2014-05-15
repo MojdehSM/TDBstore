@@ -27,9 +27,8 @@ public class TimedWay extends Way {
 				tWayI.addProperty(pr, tLineStringI);
 			} else if (pr.getLocalName().equals("hasFeature")) {
 				//Individual tFeatureI =wayTimefeature.saveSpecialized(tWayI) ;
-				Individual tFeatureI = timefeature.createIndividual();
 				//Individual tFeatureI = timefeature.createIndividual(geomodel.getNs_Model()+tWayI);
-				tWayI.addProperty(pr, tFeatureI);
+				//tWayI.addProperty(pr, tFeatureI);
 			}
 		}
 		return tWayI;
