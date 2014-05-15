@@ -91,9 +91,9 @@
     
 
 
-    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasLineString -->
+    <!-- http://www.IntactileDesign/ontologies/2014/STOntologie.owl#hasTLineString -->
 
-    <owl:ObjectProperty rdf:about="#hasLineString">
+    <owl:ObjectProperty rdf:about="#hasTLineString">
         <rdfs:range rdf:resource="#TimedLineString"/>
         <rdfs:domain rdf:resource="#TimedPoint"/>
         <owl:inverseOf rdf:resource="#hasTimedPoints"/>

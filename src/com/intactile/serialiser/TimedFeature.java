@@ -1,5 +1,7 @@
 package com.intactile.serialiser;
 
+import java.util.Random;
+
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntProperty;
@@ -32,12 +34,13 @@ public class TimedFeature extends MyFeature {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tFeature = geomodel.getOntClass(GeoType.TimedFeature);
 
+		featureId = new Random().nextLong();
 		for (OntProperty pr : tFeature.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("hasWay")) {
-				Individual wayI = tFeatureWay.saveSpecialized(tFeatureI);
-				tFeatureI.addProperty(pr, wayI);
+				Individual twayI = tFeatureWay.saveSpecialized(tFeatureI);
+				tFeatureI.addProperty(pr, twayI);
 			} else if (pr.getLocalName().equals("hasLastPosition")) {
-				Individual tPointI = lastPosition.save(tFeatureI);
+				Individual tPointI = lastPosition.saveTPoint(tFeatureI);
 				tFeatureI.addProperty(pr, tPointI);
 			}
 		}

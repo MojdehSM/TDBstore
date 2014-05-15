@@ -20,13 +20,12 @@ import com.intactile.models.GeoType;
 public abstract class MyFeature {
 
 	public long featureId;
-	
+
 	public String featureName;
 	public String featureType;
 	public String featureDesc;
 
 	public MyFeature() {
-		featureId = new Random().nextLong();
 		
 	}
 
@@ -54,23 +53,22 @@ public abstract class MyFeature {
 		this.featureName = name;
 	}
 
-    public void setFeatureType(String featureType) {
-        this.featureType = featureType;
-    }
+	public void setFeatureType(String featureType) {
+		this.featureType = featureType;
+	}
 
-	
 	public void setFeatureDesc(String desc) {
 		this.featureDesc = desc;
 	}
 
-	public void save() {
+	public void saveMyFeature() {
 
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass myFeature = geomodel.getOntClass(GeoType.MyFeature);
 
 		Individual featureI = myFeature.createIndividual(geomodel.getNs_Model()
 				+ featureId);
-
+	
 		for (OntProperty pr : myFeature.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("featureName")) {
 				featureI.addProperty(pr, getFeatureName());
@@ -80,16 +78,17 @@ public abstract class MyFeature {
 				featureI.addProperty(pr, getFeatureDesc());
 			}
 		}
+
 		this.saveSpecialized(featureI);
+		System.err.println("It's Save into TDB");
 	}
 
 	protected abstract Individual saveSpecialized(Individual ind);
-        
-        
-        @Override
+
+	@Override
 	public String toString() {
 		return "ID:" + featureId + ", FeatureName:" + featureName
 				+ ", FeatureDesc:" + featureDesc + ", FeatureType:"
-				+ featureType ;
+				+ featureType;
 	}
 }

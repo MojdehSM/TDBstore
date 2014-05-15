@@ -43,9 +43,9 @@ public class CsvParser {
                         System.err.println(strs[0] + " is not long");
                         continue;
                     }
-                    timedFeature.featureName = strs[1];
-                    timedFeature.featureType = strs[2];
-                    timedFeature.featureDesc = strs[3];
+                    timedFeature.featureName = strs[1].replace("\"", "");
+                    timedFeature.featureType = strs[2].replace("\"", "");
+                    timedFeature.featureDesc = strs[3].replace("\"", "");
                     timedFeaturelst.add(timedFeature);
 
                 } else if (strs.length > 4) {
@@ -55,12 +55,12 @@ public class CsvParser {
                         System.err.println(strs[0] + " is not long");
                         continue;
                     }
-                    tpoint.tPointLatitude = strs[1];
-                    tpoint.tPointLongitude = strs[2];
-                    tpoint.tPointAltitude = strs[3];
-                    tpoint.tPointDirection = strs[4];
-                    tpoint.tPointSpeed = strs[5];
-                    tpoint.tPointTime = strs[6];
+                    tpoint.tPointLatitude = strs[1].replace("\"", "");
+                    tpoint.tPointLongitude = strs[2].replace("\"", "");
+                    tpoint.tPointAltitude = strs[3].replace("\"", "");
+                    tpoint.tPointDirection = strs[4].replace("\"", "");
+                    tpoint.tPointSpeed = strs[5].replace("\"", "");
+                    tpoint.tPointTime = strs[6].replace("\"", "");
                     timedFeature.tFeatureWay.wayTLine.addWayPoint(tpoint);
                 }
 

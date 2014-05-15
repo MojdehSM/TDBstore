@@ -29,7 +29,7 @@ public class TDBUtils implements IPersistance {
 		Model model = ds.getDefaultModel();
 		OntModel ontModel = ModelFactory.createOntologyModel(
 				OntModelSpec.OWL_MEM, model);
-		ontModel.add(model);
+		//ontModel.add(model);
 		// dataAcessor.add(ontModel);----> Fuseki
 		return ontModel;
 	}
@@ -66,14 +66,14 @@ public class TDBUtils implements IPersistance {
 
 		// System.out.println("TimedPoint class Propertys");
 		String qs2 = StrUtils.strjoinNL("SELECT  *",
-				" { ?myElements rdfs:range xsd:string ;",
+				" WHERE{ ?myElements rdfs:range xsd:string ;",
 				"  rdfs:domain my:TimedPoint", " }");
 
 		System.out.println("TimedPoint class instances");
 		String qs3 = StrUtils.strjoinNL("SELECT *",
-				" WHERE{ ?myElements my:TimedPoint ?name", " }");
+				" WHERE{ ?instance rdf:type my:TimedFeature.","}");
 
-		queryExecute(qs3);
+		queryExecute(qs1);
 	}
 
 	public static void queryExecute(String query) {

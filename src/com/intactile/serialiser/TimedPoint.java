@@ -1,15 +1,21 @@
 package com.intactile.serialiser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
+
+import org.opengis.temporal.DateAndTime;
 
 import InUtil.GeoSparqlModelFromXML;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntProperty;
+import com.hp.hpl.jena.sparql.function.library.date;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
-
 
 /**
  * 
@@ -32,7 +38,7 @@ public class TimedPoint implements Comparable<TimedPoint> {
 	// factory.createCoordinateReferenceSystem("EPSG:4326");
 
 	public TimedPoint() {
-		tPointId=new Random().nextLong();
+		
 	}
 
 	public long getPointId() {
@@ -63,14 +69,14 @@ public class TimedPoint implements Comparable<TimedPoint> {
 		return tPointTime;
 	}
 
-	public Individual save(Individual id) {
+	public Individual saveTPoint(Individual id) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tPoint = geomodel.getOntClass(GeoType.TimedPoint);
-		OntClass tPointlineString = geomodel.getOntClass(GeoType.LineString);
+		OntClass tPointlineString = geomodel.getOntClass(GeoType.TimedLineString);
 
 		Individual tPointI = tPoint.createIndividual(geomodel.getNs_Model()
 				+ tPointId);
-
+		tPointId = new Random().nextLong();
 		for (OntProperty pr : tPoint.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("TPointLat")) {
 				tPointI.addProperty(pr, getPointLat());
@@ -85,9 +91,9 @@ public class TimedPoint implements Comparable<TimedPoint> {
 			} else if (pr.getLocalName().equals("TPointDirection")) {
 				tPointI.addProperty(pr, getPointDirection());
 			} else if (pr.getLocalName().equals("hasTLineString")) {
-				Individual tPointLineI = tPointlineString.createIndividual(geomodel.getNs_GeoSparql()
-						+ id);
-				tPoint.addProperty(pr,tPointLineI);
+				Individual tPointLineI = tPointlineString
+						.createIndividual(geomodel.getNs_Model() + id);
+				tPoint.addProperty(pr, tPointLineI);
 			}
 		}
 		return tPointI;
@@ -103,10 +109,27 @@ public class TimedPoint implements Comparable<TimedPoint> {
 
 	@Override
 	public int compareTo(TimedPoint o) {
-		long me = Long.parseLong(tPointTime);
-		long he = Long.parseLong(o.tPointTime);
-		long ret = me - he;
-		return (int) ret;
+
+		SimpleDateFormat inputFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss.SSS-Z", Locale.ENGLISH);
+		SimpleDateFormat outputFormat = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+		int dif = 0;
+		try {
+			Date dt1 = inputFormat.parse(tPointTime);
+			Date dt2 = inputFormat.parse(o.tPointTime);
+			 System.out.println("Date:" + dt1);
+			String dtOut1 = outputFormat.format(dt1);
+			String dtOut2 = outputFormat.format(dt2);
+			int dat1Int = Integer.valueOf(dtOut1);
+			int dat2Int = Integer.valueOf(dtOut2);
+			dif = dat1Int - dat2Int;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			e.getErrorOffset();
+		}	
+		return dif;
+
 	}
 
 }

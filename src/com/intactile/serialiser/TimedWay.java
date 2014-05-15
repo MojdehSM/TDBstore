@@ -13,19 +13,22 @@ import com.intactile.models.GeoType;
 public class TimedWay extends Way {
 
 	public TimedLineString wayTLine= new TimedLineString();
-	public TimedFeature timefeature;
+	//public TimedFeature wayTimefeature;
 
 	@Override
 	protected Individual saveSpecialized(Individual tWayI) {
 		GeoModel geomodel = GeoModel.getInstance();
 		OntClass tWay = geomodel.getOntClass(GeoType.TimedWay);
+		OntClass timefeature = geomodel.getOntClass(GeoType.TimedFeature);
 		
 		for (OntProperty pr : tWay.listDeclaredProperties().toList()) {
 			if (pr.getLocalName().equals("hasGeometryTimedLine")) {
-				Individual tLineStringI = wayTLine.save(tWayI);
+				Individual tLineStringI = wayTLine.saveTLine(tWayI);
 				tWayI.addProperty(pr, tLineStringI);
 			} else if (pr.getLocalName().equals("hasFeature")) {
-				Individual tFeatureI = timefeature.saveSpecialized(tWayI);
+				//Individual tFeatureI =wayTimefeature.saveSpecialized(tWayI) ;
+				Individual tFeatureI = timefeature.createIndividual();
+				//Individual tFeatureI = timefeature.createIndividual(geomodel.getNs_Model()+tWayI);
 				tWayI.addProperty(pr, tFeatureI);
 			}
 		}
@@ -34,7 +37,7 @@ public class TimedWay extends Way {
 
     @Override
     public String toString() {
-        return "TimedWay  : \n" +wayTLine.toString(); 
+        return "TimedWay: \n" +wayTLine.toString(); 
     }
         
         

@@ -2,6 +2,10 @@ package com.intactile.launcher;
 
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.List;
+
+import InUtil.ConvertCSVtoRDF;
 
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -11,8 +15,6 @@ import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.intactile.jenautils.CreateOntology;
 import com.intactile.models.GeoModel;
 import com.intactile.models.GeoType;
-import com.intactile.persistance.IPersistance;
-import com.intactile.persistance.PersistanceFactory;
 import com.intactile.persistance.TDBUtils;
 import com.intactile.serialiser.CsvParser;
 import com.intactile.serialiser.TimedFeature;
@@ -24,18 +26,19 @@ import com.intactile.serialiser.TimedFeature;
 public class MainTDB {
 
 	public static void main(String args[]) throws Exception {
-		//IPersistance persistance = PersistanceFactory				.getCurrentPersistance(PersistanceFactory.PersistanceType.TDB);
-		//OntModel model = persistance.getModel();
-		// CreateOntologyFromOntologyFile();
-		 //TDBUtils.queryData();	
+
+		//CreateOntologyFromOntologyFile();
+		TDBUtils.queryData();
 		// TdbTest();
 		// CreateJenaModel();
-		// List<String> list = Arrays.asList("Travail_maison.csv", "Burger.csv",
-		// "Christophe.csv", "Carré du Roi.csv", "Olivier.csv");
-		 parseTest();
+		List<String> list = Arrays.asList("Travail_maison.csv", "Burger.csv",
+				"Christophe1.csv", "Christophe2.csv", "Christophe3.csv",
+				"Christophe4.csv", "Christophe5.csv", "Carré du Roi.csv",
+				"Olivier1.csv", "Olivier2.csv", "Olivier3.csv",
+				"Stade Philippides.csv", "TramOccitanie-Maison.csv",
+				"Travail_Philippides .csv", "Travail-FJT.csv");
+		//parseTest(list);
 	}
-        
-        
 
 	public static void CreateOntologyFromOntologyFile() {
 		CreateOntology.CreateOntologyFromFile("ressources/STOntologie.owl");
@@ -57,24 +60,24 @@ public class MainTDB {
 		factory.toConsole();
 	}
 
-	// public static void parseTest(List<String> files) {
-	public static void parseTest() {
-		CsvParser pars = new CsvParser("ressources/Travail_maison.csv", ",");
-		pars.parse();
-                
-                System.out.println( "Affichage : \n");
-                for(TimedFeature tf: pars.getTimedFeaturelst()){
-                    System.err.println(tf);
-                    tf.save();
-                }
-                
-                //GeoModel.getInstance().getModel().commit();
-                
+	public static void parseTest(List<String> files) {
+		// public static void parseTest() {
 		/*
-		 * for (String file : files) { CsvParser pars = new
-		 * CsvParser("ressources/" + file, ","); pars.parse();
-		 * System.err.println(pars.getItems().size()); ConvertCSVtoRDF conv =
-		 * new ConvertCSVtoRDF(pars); conv.convertAll(); }
+		 * CsvParser pars = new CsvParser("ressources/Travail_maison.csv", ",");
+		 * pars.parse(); for (TimedFeature tf : pars.getTimedFeaturelst()) {
+		 * tf.saveMyFeature(); }
 		 */
+
+		// System.out.println("Affichage : \n");
+		System.out.println("Size: "+GeoModel.getInstance().getModel().size());
+		for (String file : files) {
+			CsvParser pars = new CsvParser("ressources/" + file, ",");
+			pars.parse();
+			for (TimedFeature tf : pars.getTimedFeaturelst()) {
+				tf.saveMyFeature();
+			}
+		}
+		System.out.println("Size: "+GeoModel.getInstance().getModel().size());
+		GeoModel.getInstance().getModel().commit();
 	}
 }
